@@ -1,0 +1,74 @@
+
+.content {
+    padding-top: 70px; /* Adjust based on your header height */
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    margin: 10px 0 5px;
+}
+
+.product-card p {
+    color: #555;
+}
+
+  /* Product Section */
+  .product-item {
+    border: 1px solid darkorange;
+    margin-bottom: 20px;
+    background: #fff;
+  }
+  
+  .product-img img {
+    max-width: 100%;
+
+  }
+  
+  .product-item h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .product-item p {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  .product-item .d-flex {
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+
+
+  .product-item .btn {
+    color: #4CAF50; /* Text color */
+    background-color: #ffffff; /* Background color */
+    border: 1px solid darkorange; /* Dark orange border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for better appearance */
+    text-align: center; /* Center text */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.product-item .btn-custom:hover {
+    background-color: darkorange; /* Dark orange background on hover */
+    color: #ffffff; /* White text color on hover */
+    border-color: darkorange; /* Maintain dark orange border on hover */
+}
+
