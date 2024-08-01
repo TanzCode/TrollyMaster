@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleproductInsert.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Add Product Form </title>
+</head>
+<body style="background-color: #fffff0;">
+    <div class="container">
+        <form action="updateProducts.php" method="post" enctype="multipart/form-data" class="product-form">
+            <h2>Insert Product</h2>
+
+            <div class="form-group">
+                <label for="storeID">Store ID</label>
+                <input type="text" id="storeID" name="storeID" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="fruitsVegetables">Fruits and Vegetables</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="pantryStaples">Pantry Staples</option>
+                    <option value="beverages">Beverages</option>
+                    <option value="snacksSweets">Snacks and Sweets</option>
+                    <option value="personalCare">Personal care</option>
+                    <option value="household">Household</option>
+                    <option value="babyProducts">Baby Products</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sub_category">Sub Category</label>
+                <select id="subcategory" name="subcategory" required>
+                    <option value="">Select a subcategory</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="province">Quantity</label>
+                    <input type="text" id="qty" name="qty" required>                        
+                </div>
+                <div class="form-group">
+                    <label for="postal-code">Scale:</label>
+                    <select id="subcategory" name="subcategory" required>
+                        <option value="">Select a subcategory</option>
+                        <option value="kg">g</option>
+                        <option value="kg">kg</option>
+                        <option value="pcs">pcs</option>
+                        <option value="ml">ml</option>
+                        <option value="ml">l</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="productImage">Images</label>
+                <input type="file" id="productImage" name="productImage"  required>
+             
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="brand">Brand</label>
+                <input type="text" id="brand" name="brand" required>
+            </div>
+
+            <div class="form-group">
+                <label for="storage_requirements">Storage Requirements</label>
+                <input type="text" id="storage_requirements" name="storage_requirements" required>
+            </div>
+
+            <div class="form-group">
+                <label for="discounts">Discounts</label>
+                <input type="text" id="discounts" name="discounts" required>
+            </div>
+
+            <div class="form-group">
+                <label for="special_details">Special Details</label>
+                <input type="text" id="special_details" name="special_details" required>
+            </div>
+
+            <div class="form-group">
+                <label for="stock_amount">Stock Amount</label>
+                <input type="text" id="stock_amount" name="stock_amount" required>
+            </div>
+            <div class="form-submit">
+                <button type="submit" id="insert" class="submit">Update Product</button>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
