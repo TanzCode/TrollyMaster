@@ -14,9 +14,8 @@
         $lastName= $row['lName'];
     
         echo "Login successful, welcome $firstName $lastName";
-        ?>
-        <h1>Passed</h1>
-        <?php
+        header("Location: ../indexCus.html");
+        exit();
     } else {
         echo "Invalid email or password";
     

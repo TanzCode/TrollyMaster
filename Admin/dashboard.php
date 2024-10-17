@@ -31,8 +31,8 @@
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
+                    <a href="javascript:void(0)" onclick="customer()" class="nav_link">
+                       <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Customers</span>
                     </a>
                     <a href="javascript:void(0)" onclick="seller()" class="nav_link">
@@ -93,6 +93,9 @@ function shop() {
 }
 function seller() {
     document.getElementById("mainContent").src = "viewAllSeller.php";
+}
+function customer() {
+    document.getElementById("mainContent").src = "viewCustomer.php";
 }
 </script>
 </html>

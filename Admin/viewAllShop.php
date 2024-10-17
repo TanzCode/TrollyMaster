@@ -101,7 +101,7 @@ $result = $conn->query($sql);
                 echo "<td>" . $row['postalCode'] . "</td>";
                 echo "<td>" . $row['sellerID'] . "</td>";
                 echo "<td class='action-buttons'>";
-                echo "<a href='editStore.html?id=" . $row['regID'] . "'><button class='edit-button'>Edit</button></a>";
+                //echo "<a href='editStore.html?id=" . $row['regID'] . "'><button class='edit-button'>Edit</button></a>";
                 echo "<a href='deleteStore.php?id=" . $row['regID'] . "' onclick=\"return confirm('Are you sure you want to delete this store?');\"><button class='delete-button'>Delete</button></a>";
                 echo "</td>";
                 echo "</tr>";

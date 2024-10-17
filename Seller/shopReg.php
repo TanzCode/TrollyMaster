@@ -17,6 +17,9 @@ $sql = "INSERT INTO store (regID, name, streetAddress, city, province, postalCod
 
 if ($conn->query($sql) === TRUE) {
     echo "Registration successful!";
+    header("Location: login.html.");
+    exit();
+
     
     exit();
 } else {

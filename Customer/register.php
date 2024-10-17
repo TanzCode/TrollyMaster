@@ -35,7 +35,7 @@ include('conn.php');?>
 
     if ($conn->query($sql) === TRUE) {
         echo "Registration successful!";
-        // You can redirect to another page or perform additional actions here
+        header("Location: login.html");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
