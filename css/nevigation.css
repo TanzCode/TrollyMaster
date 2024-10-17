@@ -1,0 +1,151 @@
+body {
+    padding-top: 70px; /* Adjust based on your header height */
+}
+
+.navbar {
+    background-color: #81C408; /* Main green background for the navbar */
+    color: #eeeeee;
+}
+
+.navbar-brand img {
+    width: 175px;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+    font-size: 18px;
+    position: relative;
+    display: inline-block;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFB524; /* Hover color to a vibrant orange */
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #FFB524; /* Underline color to a vibrant orange */
+    transition: width 0.3s;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-nav .btn {
+    font-size: 20px;
+}
+
+.btn-signup {
+    background-color: #FFB524; /* Orange for signup button */
+    color: #ffffff;
+    border: 1px solid #FFB524;
+}
+
+.btn-signup:hover {
+    background-color: #E68900; /* Darker orange on hover */
+    border-color: #E68900;
+}
+
+.btn-login {
+    background-color: #FFB524; /* Orange for login button */
+    color: #ffffff;
+    border: 1px solid #FFB524;
+}
+
+.btn-login:hover {
+    background-color: #E68900; /* Darker orange on hover */
+    border-color: #E68900;
+}
+
+.navbar-form .form-control {
+    border-color: #ffffff;
+}
+
+.navbar-nav .nav-link i {
+    color: #ffffff;
+    font-size: 24px;
+    margin-right: 10px;
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+/* New styles for icons within nav items */
+.navbar-nav .nav-item .nav-link i {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.navbar-nav .nav-item .nav-link:hover i {
+    color: #FFB524; /* Change icon color on hover */
+}
+
+.search-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-right: 8px;
+    width: 550px; /* Set a default width */
+    border-color: darkorange;
+}
+
+.search-form button {
+    background-color: #4CAF50; /* Green color for the button */
+    color: #fff;
+    border: 2px;
+    border-radius: 25px;
+    cursor: pointer;
+    padding:8px 12px;
+}
+
+.search-form button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-link {
+        font-size: 16px;
+    }
+    .navbar-brand img {
+        width: 150px;
+    }
+    .navbar-nav .nav-link i {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .navbar-nav .nav-link {
+        font-size: 14px;
+    }
+    .navbar-brand img {
+        width: 125px;
+    }
+    .navbar-nav .nav-link i {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .navbar-nav .nav-link {
+        font-size: 12px;
+    }
+    .navbar-brand img {
+        width: 100px;
+    }
+    .navbar-nav .nav-link i {
+        font-size: 16px;
+    }
+}
