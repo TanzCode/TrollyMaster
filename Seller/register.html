@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+</head>
+<body>
+    <div class="signupContainer">
+        <div class="step-row">
+            <div id="progress"></div>
+            <div class="step-col"><small>Step 1</small></div>
+            <div class="step-col"><small>Step 2</small></div>
+        </div>
+
+        <!-- Shop Details (Step 1) -->
+        <form id="Form1" method="post">
+            <h4>Shop Details</h4>
+            <input type="text" id="regID" name="regID" placeholder="Registration Number" required />
+            <input type="text" id="storeName" name="storeName" placeholder="Store Name" required />
+            <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" required />
+            <input type="text" id="city" name="city" placeholder="City" required />
+            <input type="text" id="province" name="province" placeholder="Province" required />
+            <input type="text" id="postalCode" name="postalCode" placeholder="Postal Code" required />
+
+            <div class="btn-box">
+                <span>Do you have an account? <a href="login.html">Login</a></span>
+                <button type="button" class="nextBtn" id="Next1">Next</button>
+            </div>
+        </form>
+
+        <!-- Personal Info (Step 2) -->
+        <form action="backend/reg.php" id="Form2" method="post" style="display:none;">
+            <!-- Hidden input fields to carry over Step 1 data -->
+            <input type="hidden" id="hregID" name="regID" />
+            <input type="hidden" id="hstoreName" name="storeName" />
+            <input type="hidden" id="hstreetAddress" name="streetAddress" />
+            <input type="hidden" id="hcity" name="city" />
+            <input type="hidden" id="hprovince" name="province" />
+            <input type="hidden" id="hpostalCode" name="postalCode" />
+
+            <h3>Create Account</h3>
+            <h4>Personal Info</h4>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+
+            <div class="form-radio">
+                <label>Gender</label>
+                <div class="form-radio-item">
+                    <input type="radio" id="male" name="gender" value="male" required />
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female" required />
+                    <label for="female">Female</label>
+                </div>
+            </div>
+
+            <input type="text" id="perNumber" name="perNumber" placeholder="Mobile Number" required />
+            <input type="text" id="address" name="address" placeholder="Address" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <input type="password" name="confPassword" placeholder="Confirm Password" required />
+
+            <div class="btn-box">
+                <button type="button" class="backBtn" id="Back1">Back</button>
+                <button type="submit" class="nextBtn">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to switch between form steps
+        document.getElementById('Next1').addEventListener('click', function() {
+            document.getElementById('Form1').style.display = 'none';
+            document.getElementById('Form2').style.display = 'block';
+            document.getElementById('progress').style.width = '100%'; // Update progress bar
+        });
+
+        document.getElementById('Back1').addEventListener('click', function() {
+            document.getElementById('Form1').style.display = 'block';
+            document.getElementById('Form2').style.display = 'none';
+            document.getElementById('progress').style.width = '50%'; // Reset progress bar
+        });
+
+        // Transfer data from Step 1 to hidden fields in Step 2
+        document.getElementById('Next1').onclick = function() {
+            document.getElementById('hregID').value = document.getElementById('regID').value;
+            document.getElementById('hstoreName').value = document.getElementById('storeName').value;
+            document.getElementById('hstreetAddress').value = document.getElementById('streetAddress').value;
+            document.getElementById('hcity').value = document.getElementById('city').value;
+            document.getElementById('hprovince').value = document.getElementById('province').value;
+            document.getElementById('hpostalCode').value = document.getElementById('postalCode').value;
+        }
+    </script>
+</body>
+</html>
