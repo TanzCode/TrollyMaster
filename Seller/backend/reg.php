@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate that passwords match
     if ($password !== $confPassword) {
-        //echo "Passwords do not match!";
         header("Location: SuccessError/error.html");
         exit();
     }
@@ -39,25 +38,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmtPersonal = $conn->prepare($sqlPersonal);
     $stmtPersonal->bind_param("sssssss", $firstName, $lastName, $gender, $perNumber, $address, $email, $hashPassword);
 
-    // Insert Shop Details into the database
-    $sqlShop = "INSERT INTO store (regID, name, streetAddress, city, province, postalCode) 
-                VALUES (?, ?, ?, ?, ?, ?)";
-    $stmtShop = $conn->prepare($sqlShop);
-    $stmtShop->bind_param("ssssss", $regID, $storeName, $streetAddress, $city, $province, $postalCode);
+    // Execute the seller_personal insertion
+    if ($stmtPersonal->execute()) {
+        // Get the last inserted ID (seller_personal ID)
+        $sellerID = $conn->insert_id;
 
-    // Execute both insert statements
-    if ($stmtPersonal->execute() && $stmtShop->execute()) {
-        echo "Registration successful!";
-        header("Location: SuccessError/success.html");
+        // Insert Shop Details into the store table, including the seller_personal ID
+        $sqlShop = "INSERT INTO store (regID, name, streetAddress, city, province, postalCode,sellerID) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmtShop = $conn->prepare($sqlShop);
+        $stmtShop->bind_param("ssssssi", $regID, $storeName, $streetAddress, $city, $province, $postalCode, $sellerID);
 
+        // Execute the store insertion
+        if ($stmtShop->execute()) {
+            echo "Registration successful!";
+            header("Location: SuccessError/success.html");
+        } else {
+            echo "Error: " . $stmtShop->error;
+            header("Location: SuccessError/error.html");
+        }
+
+        // Close the Shop statement
+        $stmtShop->close();
     } else {
-        echo "Error: " . $stmtPersonal->error . " / " . $stmtShop->error;
+        echo "Error: " . $stmtPersonal->error;
         header("Location: SuccessError/error.html");
     }
 
-    // Close the statements and connection
+    // Close the Personal statement and connection
     $stmtPersonal->close();
-    $stmtShop->close();
     $conn->close();
 } else {
     echo "Invalid request method!";

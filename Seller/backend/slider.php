@@ -2,10 +2,10 @@
 session_start();
 
 // Check if the first name is set in the session
-if (isset($_SESSION['firstName']) && isset($_SESSION['lastName']) && isset($_SESSION['userID'])) {
-    $firstName = $_SESSION['firstName'];
-    $lastName = $_SESSION['lastName'];
-    $userID = $_SESSION['userID'];
+if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['sellerID'])) {
+    $firstName = $_SESSION['fName'];
+    $lastName = $_SESSION['lName'];
+    $userID = $_SESSION['sellerID'];
    
     // You can now use $firstName in your HTML or other PHP code
 } else {

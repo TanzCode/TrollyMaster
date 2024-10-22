@@ -65,12 +65,12 @@ a {
 .l-navbar {
   position: fixed;
   top: 0;
-  left: -100%; /* Hidden off-screen */
+  left: -30%;
   width: var(--nav-width);
   height: 100vh;
   background-color: var(--first-color);
   padding: .5rem 1rem 0 0;
-  transition: left 0.5s ease; /* Smooth slide transition */
+  transition: .5s;
   z-index: var(--z-fixed);
 }
 
@@ -120,11 +120,11 @@ a {
 }
 
 .show {
-  left: 0; /* Show when the 'show' class is active */
+  left: 0;
 }
 
 .body-pd {
-  padding-left: calc(var(--nav-width) + 1rem); /* Adjust body padding when nav is visible */
+  padding-left: calc(var(--nav-width) + 1rem);
 }
 
 .active {
@@ -167,6 +167,9 @@ a {
   .l-navbar {
     left: 0;
     padding: 1rem 1rem 0 0;
+  }
+
+  .show {
     width: calc(var(--nav-width) + 156px);
   }
 
@@ -175,7 +178,7 @@ a {
   }
 }
 
-/* Additional styles for dropdown and search container */
+
 .search-container {
   display: flex;
   align-items: center;
@@ -185,27 +188,25 @@ a {
   background-color: #fff;
   width: 300px;
 }
-
 .search-input {
   border: none;
   padding: 5px;
   width: 100%;
   border-radius: 5px;
 }
-
 .search-button {
   border: none;
-  background-color: #008000;
+  background-color:#008000;
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
 }
-
 .search-button:hover {
   background-color: darkorange;
 }
 
+/* Dropdown container */
 .dropdown {
   position: relative;
 }
@@ -220,6 +221,7 @@ a {
   color: var(--white-color);
 }
 
+/* Dropdown menu */
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -239,6 +241,7 @@ a {
   visibility: hidden;
 }
 
+/* Show dropdown */
 .dropdown-menu.show {
   display: block;
   opacity: 1;
@@ -246,6 +249,7 @@ a {
   visibility: visible;
 }
 
+/* Dropdown items */
 .dropdown-item {
   padding: 10px 15px;
   color: var(--first-color);

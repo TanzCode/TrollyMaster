@@ -40,7 +40,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
                     <span class="nav_logo-name">Trolly Master</span>
                 </a>
                 <div class="nav_list">
-                    <a href="overview.php" class="nav_link active">
+                    <a href="overview.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Overview</span>
                     </a>
@@ -55,7 +55,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
                             <li><a class="dropdown-item" href="product/viewProducts.php"><i class='bx bx-receipt'></i><span class="nav_name">Update product list</span></a></li>
                         </ul>
                     </div>
-                    <a href="orderManagement.php"  class="nav_link">
+                    <a href="orderManagement.php"  class="nav_link" class="nav_link active">
                         <i class='bx bxs-package' ></i><span class="nav_name">Orders</span>
                     </a>
 
@@ -63,7 +63,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
                         <i class='bx bx-store'></i><span class="nav_name">Shop management</span>
                     </a>
                     <a href="notification.php" class="nav_link">
-                        <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">Notification</span>
+                        <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name" >Notification</span>
                     </a>
                     <a href="profile.php" class="nav_link">
                         <i class='bx bx-cog' ></i><span class="nav_name">Profile management</span>
@@ -83,8 +83,11 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
             <p>Seller ID: <span id="user-id"><?php echo htmlspecialchars($userID); ?></span></p>
         </div>
         <hr>
-        <iframe id="mainContent" style="width: 100%; height: 80%;" frameborder="0" src="Home.html"></iframe>
-    </div>
+       <h1> Main container - Order Management</h1>
+       <br><br><br><br><br><br><br><br><br><br><br><br>
+       <h1> Main container - Order Management</h1>
+       <br><br><br><br><br><br><br><br><br><br><br><br>
+       <h1> Main container - Order Management</h1>
     <!--Container Main end-->
     <script src="JS/slider.js"></script>
     <!-- Bootstrap JS, Popper.js, and jQuery -->
