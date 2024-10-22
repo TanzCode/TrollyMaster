@@ -3,7 +3,7 @@ session_start();
 include('conn.php');
 
 // Fetch products
-$sql = "SELECT storeID, productName, category, subCategory, description, brand, storageRequirements, discounts, specialDetails, stockAmount,image, price FROM product";
+$sql = "SELECT * FROM product";
 $result = $conn->query($sql);
 
 $products = [];
@@ -27,6 +27,16 @@ $conn->close();
 <?php
 include('header.php');
 ?>
+<!-- Modal structure -->
+<div id="loginModal" class="modal" >
+    <div class="modal-content" style="width:50%; position:center;">
+        <span class="close">&times;</span>
+        <h2>Login or Register</h2>
+        <p>You need to log in or register to add products to your cart.</p>
+        <button class="btn btn-custom" onclick="window.location.href='Customer/login.html'">Login</button>
+        <button class="btn btn-custom" onclick="window.location.href='Customer/register.html'">Register</button>
+    </div>
+</div>
 
 
 <div class="container-fluid py-5">
@@ -40,14 +50,15 @@ include('header.php');
                         <div class="col-md-6 col-lg-6 col-xl-4">
                             <div class="rounded position-relative product-item">
                                 <div class="product-img">
-                                    <img src="Seller/<?php echo ($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo $product['productName']; ?>">
+                                    <img src="Seller/backend/product/<?php echo ($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo $product['productName']; ?>">
                                     </div>
                                     <div class="p-4 p-4 rounded-bottom">
                                     <h4><?php echo $product['productName']; ?></h4>
                                     <p><?php echo $product['description']; ?></p>
                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                         <p class="text-dark fs-5 fw-bold mb-0">Rs <?php echo $product['price']; ?></p>
-                                        <a href="#" class="btn btn-custom" ><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
+                                        <a href="#" class="btn btn-custom add-to-cart" ><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
+                                        <a href="productView.php?product_id=<?php echo $product['productID']; ?>">View Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -155,6 +166,34 @@ include('header.php');
                 document.getElementById('accountTypeInput').value = accountType;
                 document.getElementById('accountTypeForm').submit();
             }
+
+            // Get the modal
+            var modal = document.getElementById("loginModal");
+
+            // Get the button that opens the modal
+            var addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+            // Get the <span> element that closes the modal
+            var closeModal = document.querySelector(".modal .close");
+
+            // Add event listener to open the modal when "Add to Cart" is clicked
+            addToCartButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    modal.style.display = "block";
+                });
+            });
+
+            // Add event listener to close the modal when the close button is clicked
+            closeModal.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+
+            // Add event listener to close the modal when clicking outside of it
+            window.addEventListener("click", function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
         </script>
 
         <!-- Bootstrap JS, Popper.js, and jQuery -->

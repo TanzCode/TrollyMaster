@@ -29,7 +29,7 @@ while ($row = $result->fetch_assoc()) {
     }
 }
 
-// Include CSS for styling the cards
+// Include CSS for styling the cards and modal
 echo "<style>
     .cards-container {
         display: flex;
@@ -82,15 +82,74 @@ echo "<style>
         color: #ffffff;
         border-color: darkorange;
     }
-        .cheaper-products-container {
+    .cheaper-products-container {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
         justify-content: center;
         margin-top: 40px;
     }
+    /* Stylish Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease-in-out;
+        position: relative;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close:hover {
+        color: darkorange;
+    }
+    .modal-content h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: darkorange;
+    }
+    .modal-content p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+    .modal-content button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .modal-content button.btn-custom:hover {
+        background-color: darkorange;
+        color: #fff;
+    }
+    
 </style>";
-
 ?>
 
 <!DOCTYPE html>
@@ -99,11 +158,19 @@ echo "<style>
 include('header.php');
 ?>
 
-<br>
-<br>
-<br>
-<br><br>
-<br>
+<!-- Modal structure -->
+<div id="loginModal" class="modal" >
+    <div class="modal-content" style="width:50%; position:center;">
+        <span class="close">&times;</span>
+        <h2>Login or Register</h2>
+        <p>You need to log in or register to add products to your cart.</p>
+        <button class="btn btn-custom" onclick="window.location.href='Customer/login.html'">Login</button>
+        <button class="btn btn-custom" onclick="window.location.href='Customer/register.html'">Register</button>
+    </div>
+</div>
+
+<br><br><br><br><br><br>
+
 <div>
 <?php 
 // Check if any products were found
@@ -114,7 +181,7 @@ if ($result->num_rows > 0) {
     foreach ($products as $row){
         echo "<div class='product-item'>
                 <div class='product-img'>
-                    <img src='Seller/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
+                    <img src='Seller/backend/product" . htmlspecialchars($row['image']) . "' alt='Product Image'>
                 </div>
                 <h4>" . htmlspecialchars($row['productName']) . "</h4>
                 <p><strong>Category:</strong> " . htmlspecialchars($row['category']) . "</p>
@@ -128,15 +195,14 @@ if ($result->num_rows > 0) {
                 <p><strong>Price:</strong> " . htmlspecialchars($row['price']) . "</p>
                 <p><strong>Unit Price:</strong> " . htmlspecialchars($row['unitPrice']) . "</p>
                 <div class='d-flex'>
-                    <button class='btn btn-custom'>Add to Order</button>
+                    <button class='btn btn-custom add-to-cart'>Add to Cart</button>
                 </div>
             </div>";
     }
     echo "</div>";
+} else {
+    echo "No products found matching the search criteria.";
 }
-    else {
-        echo "No products found matching the search criteria.";
-    }
     
 // Display the cheapest products
 echo "<h2>Cheapest Products</h2>";
@@ -160,19 +226,48 @@ foreach ($products as $row) {
                 <p><strong>Price:</strong> " . htmlspecialchars($row['price']) . "</p>
                 <p><strong>Unit Price:</strong> " . htmlspecialchars($row['unitPrice']) . "</p>
                 <div class='d-flex'>
-                    <button class='btn btn-custom'>Buy Now</button>
+                    <button class='btn btn-custom add-to-cart'>Add To Cart</button>
                 </div>
             </div>";
     }
-    
 }
-
 echo "</div>";
 
-
 $stmt->close();
-
 ?>
 </div>
-</body>
-</html>
+
+<!-- JavaScript for modal -->
+<script>
+// Get the modal
+var modal = document.getElementById("loginModal");
+
+// Get the button that opens the modal
+var addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+// Get the <span> element that closes the modal
+var closeModal = document.querySelector(".modal .close");
+
+// Add event listener to open the modal when "Add to Cart" is clicked
+addToCartButtons.forEach(button => {
+    button.addEventListener("click", function() {
+        modal.style.display = "block";
+    });
+});
+
+// Add event listener to close the modal when the close button is clicked
+closeModal.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+// Add event listener to close the modal when clicking outside of it
+window.addEventListener("click", function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+});
+</script>
+
+<?php
+include('footer.php');
+?>

@@ -35,8 +35,9 @@ h2 {
 }
 
 .form-group {
+    margin-left: -40%;
     margin-bottom: 20px;
-    width: 100%; 
+    width: 180%; 
     position: relative;
 }
 

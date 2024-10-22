@@ -38,6 +38,65 @@
         .card {
             cursor: pointer;
         }
+            /* Stylish Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease-in-out;
+        position: relative;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close:hover {
+        color: darkorange;
+    }
+    .modal-content h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: darkorange;
+    }
+    .modal-content p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+    .modal-content button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .modal-content button.btn-custom:hover {
+        background-color: darkorange;
+        color: #fff;
+    }
     </style>
 </head>
 
@@ -53,7 +112,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <form class="search-form ms-auto" action="productearch.php" method="get">
+                    <form class="search-form ms-auto" action="productSearch.php" method="get">
                         <input type="text" name="search" placeholder="Search...">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>

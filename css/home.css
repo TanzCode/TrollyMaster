@@ -1,74 +1,140 @@
-
+/* Luxurious content padding */
 .content {
-    padding-top: 70px; /* Adjust based on your header height */
+  padding-top: 70px; /* Adjust based on your header height */
+  background: linear-gradient(135deg, #f3f3f3 0%, #ffffff 100%); /* Subtle gradient background */
 }
 
+/* Full-width responsive banner */
 .banner img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Luxurious soft shadow */
+  transition: transform 0.4s ease; /* Smooth transform effect */
 }
 
+.banner img:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Product card styling with animation */
 .product-card {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 15px; /* Rounded corners for luxury feel */
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Premium shadow effect */
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth animation */
 }
 
+.product-card:hover {
+  transform: translateY(-10px); /* Slight lift on hover */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); /* Deep shadow on hover */
+}
+
+/* Image inside the product card */
 .product-card img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  transition: transform 0.4s ease;
 }
 
+.product-card img:hover {
+  transform: scale(1.08); /* Image zoom on hover */
+}
+
+/* Product card title and description */
 .product-card h3 {
-    margin: 10px 0 5px;
+  margin: 10px 0 5px;
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
 }
 
 .product-card p {
-    color: #555;
+  color: #777;
+  font-size: 16px;
 }
 
-  /* Product Section */
-  .product-item {
-    border: 1px solid darkorange;
-    margin-bottom: 20px;
-    background: #fff;
-  }
-  
-  .product-img img {
-    max-width: 100%;
+/* Product item with refined border and hover effects */
+.product-item {
+  border: 1px solid darkorange;
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Subtle shadow for a premium look */
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth hover effect */
+}
 
-  }
-  
-  .product-item h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .product-item p {
-    font-size: 14px;
-    color: #6c757d;
-  }
-  
-  .product-item .d-flex {
-    align-items: center;
-    justify-content: space-between;
-  }
-  
+.product-item:hover {
+  transform: translateY(-8px); /* Lift effect on hover */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); /* Deep shadow on hover */
+}
 
+/* Image inside the product item */
+.product-img img {
+  max-width: 100%;
+  transition: transform 0.4s ease;
+}
 
-  .product-item .btn {
-    color: #4CAF50; /* Text color */
-    background-color: #ffffff; /* Background color */
-    border: 1px solid darkorange; /* Dark orange border */
-    border-radius: 20px; /* Rounded corners */
-    padding: 10px 20px; /* Padding for better appearance */
-    text-align: center; /* Center text */
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition for hover effect */
+.product-img img:hover {
+  transform: scale(1.05); /* Image zoom on hover */
+}
+
+/* Product item title */
+.product-item h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Product item description */
+.product-item p {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* Flexbox for alignment */
+.product-item .d-flex {
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Button styling for luxurious feel */
+.product-item .btn {
+  color: #4CAF50; /* Text color */
+  background-color: #ffffff; /* Background color */
+  border: 1px solid darkorange; /* Dark orange border */
+  border-radius: 20px; /* Rounded corners */
+  padding: 10px 20px; /* Padding for better appearance */
+  text-align: center; /* Center text */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth hover transition */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Button shadow */
 }
 
 .product-item .btn-custom:hover {
-    background-color: darkorange; /* Dark orange background on hover */
-    color: #ffffff; /* White text color on hover */
-    border-color: darkorange; /* Maintain dark orange border on hover */
+  background-color: darkorange; /* Dark orange background on hover */
+  color: #ffffff; /* White text color on hover */
+  border-color: darkorange; /* Maintain dark orange border on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }
 
+/* Add smooth fade-in animation for product cards */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.product-card, .product-item {
+  animation: fadeInUp 0.5s ease both; /* Apply the animation */
+  transition: transform 0.4s ease;
+}

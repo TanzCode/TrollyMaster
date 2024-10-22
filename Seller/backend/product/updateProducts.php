@@ -40,9 +40,10 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
         }
 
         table {
+            margin-left:5%;
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            /* margin: 20px 0; */
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -150,7 +151,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
     </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-        <div class="welcome-message">
+    <div class="welcome-message" style="margin-top:80px; margin-left:-130%;">
             <h1>Welcome, <?php echo htmlspecialchars($firstName) . " " . htmlspecialchars($lastName); ?>!</h1>
             <p>Seller ID: <span id="user-id"><?php echo htmlspecialchars($userID); ?></span></p>
         </div>

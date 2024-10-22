@@ -79,7 +79,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
     </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-        <div class="welcome-message">
+        <div class="welcome-message" style="margin-top:80px; margin-left:-130%;">
             <h1>Welcome, <?php echo htmlspecialchars($firstName) . " " . htmlspecialchars($lastName); ?>!</h1>
             <p>Seller ID: <span id="user-id"><?php echo htmlspecialchars($userID); ?></span></p>
         </div>
@@ -179,7 +179,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
                 <input type="text" id="stock_amount" name="stock_amount" required>
             </div>
             <div class="form-submit">
-                <button type="submit" id="insert" class="submit">Insert Product</button>
+                <button type="submit" id="insert" class="submit" style="margin-bottom:30px;">Insert Product</button>
             </div>
         </form>
 
