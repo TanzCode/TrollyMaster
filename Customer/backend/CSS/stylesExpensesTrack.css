@@ -1,0 +1,80 @@
+body {
+    background: #f0f8e2; /* Light greenish background */
+    color: #333;
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.text-primary {
+    color: #66bb6a; /* Fresh green color */
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: linear-gradient(145deg, #81c784, #66bb6a); /* Lush green gradient */
+    border-radius: 20px;
+    padding: 1.5rem;
+    color: #fff;
+    margin: 0 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.expense-details {
+    margin-top: 3rem;
+}
+
+.expense-details h2 {
+    color: #388e3c; /* Dark green for headings */
+}
+
+.table {
+    width: 100%;
+    background-color: #f9f9f9; /* Light color for table background */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+    border: 1px solid #ccc;
+}
+
+.table th, .table td {
+    color: #333;
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #a5d6a7; /* Light green header */
+    color: #333;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e8f5e9; /* Light hover effect */
+}
+
+canvas {
+    margin-top: 1rem;
+}

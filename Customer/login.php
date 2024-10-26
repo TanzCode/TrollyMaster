@@ -28,7 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $hash)) {
                 // Start the session and set session variables
                 session_start();
-                $_SESSION['loggedin'] = true;
+                $_SESSION['loggedincus'] = true;
+                $_SESSION['cusID']=$row['cusID'];
                 $_SESSION['fname'] = $row['fName'];
                 $_SESSION['lname'] = $row['lName'];
                 $_SESSION['streetAddress'] = $row['streetAddress'];

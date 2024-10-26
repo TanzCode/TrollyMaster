@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+/* Global Styles */
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and Container Styles */
+.conn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  max-width: 600px;
+  width: 100%;
+  margin-top: 15%;
+  margin-bottom: 15%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Header */
+.container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.container p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.container a {
+  color: #ff8000;
+  text-decoration: none;
+}
+
+.container a:hover {
+  text-decoration: underline;
+}
+
+/* Button Styles */
+.loginbtn, .backbtn {
+  width: 150px;
+  height: 45px;
+  margin: 10px 5px;
+  border-radius: 50px;
+  border: 0;
+  outline: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.loginbtn {
+  background: #4CAF50;
+  color: #fff;
+  border: 1px solid #ff8000;
+
+}
+
+.loginbtn:hover {
+  background: #ff8000;
+}
+
+.backbtn {
+  background: #f4f4f4;
+  color: #1a242f;
+  border: 2px solid #4CAF50;
+}
+
+.backbtn:hover {
+  background: #ff8000;
+  color: #fff;
+  border: 2px solid #ff8000;
+}
+
+/* Header Spacing */
+.header {
+  margin-bottom: 20px;
+}
+
+/* Checkmark Image */
+.checkmark {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px;
+  }
+
+  .loginbtn, .backbtn {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .checkmark {
+    width: 80px;
+    height: 80px;
+  }
+}
