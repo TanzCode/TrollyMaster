@@ -23,6 +23,8 @@ if (isset($_SESSION['grandTotal'])) {
             // Step 1: Insert the order into the `orders` table
             $orderQuery = "INSERT INTO orders (cusID, grandTotal, orderStatus, createdTime, paymentStatus) 
                            VALUES ('$cusID', '$grandTotal', 'Processing', NOW(), 'Paid')";
+
+            include '../ordernotification.php';
             if (!mysqli_query($conn, $orderQuery)) {
                 throw new Exception("Error placing order: " . mysqli_error($conn));
             }
@@ -38,7 +40,7 @@ if (isset($_SESSION['grandTotal'])) {
 
             // Step 3: Update the `expenses` table by reducing the customer's remaining budget
             // Fetch the customer's active budget
-            $budgetQuery = "SELECT * FROM expenses WHERE cusID = '$cusID' AND startdate <= NOW() AND enddate >= NOW() AND remainingBudget > 0 LIMIT 1";
+            $budgetQuery = "SELECT * FROM expenses WHERE cusID = '$cusID' AND startdate <= NOW() AND enddate >= NOW() LIMIT 1";
             $budgetResult = mysqli_query($conn, $budgetQuery);
 
             if ($budgetResult && mysqli_num_rows($budgetResult) > 0) {
@@ -46,11 +48,18 @@ if (isset($_SESSION['grandTotal'])) {
                 $remainingBudget = $budgetRow['remainingBudget'];
                 $budgetID = $budgetRow['budgetID'];
 
-                // Deduct the grandTotal from the remaining budget, even if the result is negative
+                // Deduct the grandTotal from the remaining budget, allowing negative results
                 $newRemainingBudget = $remainingBudget - $grandTotal;
                 $updateBudgetQuery = "UPDATE expenses SET remainingBudget = '$newRemainingBudget' WHERE budgetID = '$budgetID'";
                 if (!mysqli_query($conn, $updateBudgetQuery)) {
                     throw new Exception("Error updating budget: " . mysqli_error($conn));
+                }
+
+                // Step 4: Insert the expense history into `expenseshistory`
+                $insertHistoryQuery = "INSERT INTO expenseshistory (budgetID, budget, startdate, enddate, cusID, remainingBudget, updatedTime) 
+                                       VALUES ('$budgetID', '{$budgetRow['budget']}', '{$budgetRow['startdate']}', '{$budgetRow['enddate']}', '$cusID', '$newRemainingBudget', NOW())";
+                if (!mysqli_query($conn, $insertHistoryQuery)) {
+                    throw new Exception("Error inserting expense history: " . mysqli_error($conn));
                 }
             } else {
                 throw new Exception("No active budget found for the customer.");
@@ -86,12 +95,14 @@ if (isset($_SESSION['grandTotal'])) {
         <div class="container">
             <div class="header">
                 <img src="https://img.icons8.com/?size=100&id=a4l6bA9mSmBh&format=png&color=40C057" alt="Checkmark" class="checkmark">
-                <h1>Your payment was successful</h1>
+                
             </div>
-            <p>Thank you for your order. Stay tuned with Trolly Master.</p>
-            <p>For further information, please check the <a href="../../About/about.html">documentation</a>.</p>
-            <br>
-            <button class="backbtn" onclick="window.history.back()">Back</button>
+            <h1>Thank You!</h1>
+            <p>Your order has been placed successfully.</p>
+            <p>Your Order ID is: <strong><?php echo $orderID; ?></strong></p>
+            <p>You will receive an email and SMS shortly.</p>
+            
+            <button class="backbtn"><a href="../index.php" class="btn btn-primary">Continue Shopping</a></button>
         </div>
     </div>
 </body>
