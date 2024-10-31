@@ -4,11 +4,14 @@
     <title>Trolly Master</title>
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/home.css" rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"><!--fontawesome-free-5.15.4-web-->
    <!--fontawesome-free-5.15.4-web-->
     <link rel="stylesheet" href="../../css/nevigation.css">
     <link rel="stylesheet" href="../../css/nav2style.css">
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/nav.js"></script>
+
    
     <link rel="stylesheet" href="../../css/style.css">
     <style>
@@ -129,6 +132,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="expencessTrack/expensesTracking.php">Expenses Tracking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../orderlist.php">Order Management</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="viewCart.php"><i class="fas fa-shopping-cart"></i> Cart</a>

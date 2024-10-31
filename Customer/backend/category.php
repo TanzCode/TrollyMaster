@@ -54,7 +54,7 @@ $conn->close();
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
+                            <a class="nav-link" href="product.php">All Products</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact Us</a>
@@ -63,7 +63,7 @@ $conn->close();
                             <a class="nav-link" href="#">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+                            <a class="nav-link" href="viewCart.php"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../index.html" id="loginBtn"><i class="fas fa-sign-out-alt"></i> Log Out</a>

@@ -180,6 +180,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="date" id="end_date" name="end_date" required>
         
         <button type="submit">Set Budget</button>
+        <div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.location.href='expensesTracking.php'" style="padding: 10px 20px; font-size: 16px; background-color: #d9534f; color: white; border: none; border-radius: 5px; cursor: pointer;">Back to Expenses Tracker</button>
+</div>
     </form>
 </div>
 
