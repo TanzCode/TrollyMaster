@@ -4,7 +4,7 @@ require '../dbConnection.php';
 
 // Check if the customer is logged in
 if (!isset($_SESSION['cusID'])) {
-    header('Location: login.php'); // Redirect to login page if customer is not logged in
+    header('Location: ../login.php'); // Redirect to login page if customer is not logged in
     exit();
 }
 
@@ -33,7 +33,7 @@ if (isset($_SESSION['grandTotal'])) {
             $orderID = mysqli_insert_id($conn);
 
             // Step 2: Update the `cart` table - mark purchased items (status 0 to 1)
-            $updateCartQuery = "UPDATE cart SET status = 1 WHERE cusID = '$cusID' AND status = 0";
+            $updateCartQuery = "UPDATE cart SET status = 1, orderID='$orderID', orderStatus='Processing' WHERE cusID = '$cusID' AND status = 0";
             if (!mysqli_query($conn, $updateCartQuery)) {
                 throw new Exception("Error updating cart: " . mysqli_error($conn));
             }

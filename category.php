@@ -36,7 +36,7 @@ include('header.php');
                             <div class="col-md-6 col-lg-6 col-xl-4">
                                 <div class="rounded position-relative product-item">
                                     <div class="product-img">
-                                        <img src="Seller/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
+                                        <img src="seller/backend/product/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
                                     </div>
                                     <div class="p-4 rounded-bottom">
                                         <h4><?php echo htmlspecialchars($product['productName']); ?></h4>

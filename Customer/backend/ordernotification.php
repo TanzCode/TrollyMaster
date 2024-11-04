@@ -15,13 +15,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     
     // Prepare notification for the seller
     $sellerID = $row['sellerID'];
-    $message = "You have a new order from  " . $row['cusID'] . " for product ID: " . $row['productID'] . ", Quantity: " . $row['quantity'];
+    $message = "You have a new order from $cusID for product ID: " . $row['productID'] . ", Quantity: " . $row['quantity'];
     
     // Insert notification into the notifications table
-    $notificationQuery = "
-        INSERT INTO notifications (recipientType, recipientID, Message, status, timeStamp) 
-        VALUES ('seller', $sellerID, '$message', 0, NOW())
-    ";
+    $notificationQuery = "INSERT INTO notifications (recipientType, recipientID, Message, status, timeStamp) 
+        VALUES ('seller', $sellerID, '$message', 0, NOW())";
     mysqli_query($conn, $notificationQuery);
 }
 

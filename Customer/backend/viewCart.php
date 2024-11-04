@@ -4,7 +4,7 @@ include 'dbConnection.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['cusID'])) {
-    header('Location: login.php'); // Redirect to login if not logged in
+    header('Location: ../login.html'); // Redirect to login if not logged in
     exit();
 }
 
@@ -141,6 +141,7 @@ $(document).ready(function () {
             if (confirm(`Your total exceeds the remaining budget. Remaining budget: $${remainingBudget.toFixed(2)}. Do you want to proceed with the checkout?`)) {
                 // If the user clicks "OK", proceed to checkout
                 window.location.href = 'checkOutt.php?grandTotal=' + encodeURIComponent(grandTotal);
+                //window.location.href = 'checkOutt.php?grandTotal=' + encodeURIComponent(grandTotal);
             } else {
                 // If the user clicks "Cancel", navigate back to the cart page
                 window.location.href = 'viewCart.php'; // Adjust the link if necessary

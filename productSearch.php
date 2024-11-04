@@ -181,7 +181,8 @@ if ($result->num_rows > 0) {
     foreach ($products as $row){
         echo "<div class='product-item'>
                 <div class='product-img'>
-                    <img src='Seller/backend/product" . htmlspecialchars($row['image']) . "' alt='Product Image'>
+                
+                    <img src='Seller/backend/product/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
                 </div>
                 <h4>" . htmlspecialchars($row['productName']) . "</h4>
                 <p><strong>Category:</strong> " . htmlspecialchars($row['category']) . "</p>
@@ -212,7 +213,7 @@ foreach ($products as $row) {
     if ($row['unitPrice'] == $cheapestUnitPrice) {
         echo "<div class='product-item'>
                 <div class='product-img'>
-                    <img src='Seller/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
+                    <img src='Seller/backend/product/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
                 </div>
                 <h4>" . htmlspecialchars($row['productName']) . "</h4>
                 <p><strong>Category:</strong> " . htmlspecialchars($row['category']) . "</p>

@@ -39,6 +39,8 @@ $sql = "SELECT
 
 $result = $conn->query($sql);
 
+include 'header.php';
+
 // Display order data
 echo "<table border='1'>
         <tr>

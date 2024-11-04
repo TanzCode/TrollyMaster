@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include('dbConnection.php');
+include('conn.php');
 
 // Retrieve the search keyword from the GET request
 $search = $_GET['search'];
@@ -22,11 +22,9 @@ $result = $stmt->get_result();
 $products = [];
 $cheapestUnitPrice = PHP_INT_MAX;
 
-while ($row = $result->fetch_assoc()) 
-{
+while ($row = $result->fetch_assoc()) {
     $products[] = $row;
-    if ($row['unitPrice'] < $cheapestUnitPrice) 
-    {
+    if ($row['unitPrice'] < $cheapestUnitPrice) {
         $cheapestUnitPrice = $row['unitPrice'];
     }
 }
@@ -183,7 +181,8 @@ if ($result->num_rows > 0) {
     foreach ($products as $row){
         echo "<div class='product-item'>
                 <div class='product-img'>
-                    <img src='../../Seller/backend/product/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
+                
+                    <img src='../Seller/backend/product/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
                 </div>
                 <h4>" . htmlspecialchars($row['productName']) . "</h4>
                 <p><strong>Category:</strong> " . htmlspecialchars($row['category']) . "</p>
@@ -195,7 +194,7 @@ if ($result->num_rows > 0) {
                 <p><strong>Special Details:</strong> " . htmlspecialchars($row['specialDetails']) . "</p>
                 <p><strong>Stock Amount:</strong> " . htmlspecialchars($row['stockAmount']) . "</p>
                 <p><strong>Price:</strong> " . htmlspecialchars($row['price']) . "</p>
-                <p><b><strong>Unit Price:</strong> " . htmlspecialchars($row['unitPrice']) . "</b></p>
+                <p><strong>Unit Price:</strong> " . htmlspecialchars($row['unitPrice']) . "</p>
                 <div class='d-flex'>
                     <button class='btn btn-custom add-to-cart'>Add to Cart</button>
                 </div>
@@ -214,7 +213,7 @@ foreach ($products as $row) {
     if ($row['unitPrice'] == $cheapestUnitPrice) {
         echo "<div class='product-item'>
                 <div class='product-img'>
-                    <img src='../../Seller/backend/product/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
+                    <img src='../Seller/backend/product/" . htmlspecialchars($row['image']) . "' alt='Product Image'>
                 </div>
                 <h4>" . htmlspecialchars($row['productName']) . "</h4>
                 <p><strong>Category:</strong> " . htmlspecialchars($row['category']) . "</p>
@@ -226,7 +225,7 @@ foreach ($products as $row) {
                 <p><strong>Special Details:</strong> " . htmlspecialchars($row['specialDetails']) . "</p>
                 <p><strong>Stock Amount:</strong> " . htmlspecialchars($row['stockAmount']) . "</p>
                 <p><strong>Price:</strong> " . htmlspecialchars($row['price']) . "</p>
-                <p><b><strong>Unit Price:</strong> " . htmlspecialchars($row['unitPrice']) . "</b></p>
+                <p><strong>Unit Price:</strong> " . htmlspecialchars($row['unitPrice']) . "</p>
                 <div class='d-flex'>
                     <button class='btn btn-custom add-to-cart'>Add To Cart</button>
                 </div>

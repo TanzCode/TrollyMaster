@@ -46,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category = $product['category'];
 
     // Insert the item into the cart table
-    $insertSql = "INSERT INTO cart(cusID, productID, productName, price, quantity, discount, total, createdAt, status, productCatogory) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 0, ?)";
+    $insertSql = "INSERT INTO cart(cusID, productID, productName, price, quantity, discount, total, createdAt, status, productCatogory, orderID, orderStatus) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 0, ?, 0, 'Processing')";
     $stmt = $conn->prepare($insertSql);
     $stmt->bind_param("iisdiids", $userID, $product['productID'], $product['productName'], $price, $quantity, $discount, $total, $category);
 

@@ -165,16 +165,18 @@ $conn->close();
                             <div class="col-md-6 col-lg-6 col-xl-4">
                                 <div class="rounded position-relative product-item">
                                     <div class="product-img">
-                                        <img src="Seller/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
+                                        <img src="../../Seller/backend/product/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
                                     </div>
-                                    <div class="p-4 rounded-bottom">
-                                        <h4><?php echo htmlspecialchars($product['productName']); ?></h4>
-                                        <p><?php echo htmlspecialchars($product['description']); ?></p>
+                                    <div class="p-4 p-4 rounded-bottom">
+                                        <h4><?php echo $product['productName']; ?> <?php echo $product['quantity'] , $product['scale']; ?></h4>
+                                        <p><?php echo $product['description']; ?></p>
+                                        <p>Unit Price: LKR <?php echo $product['unitPrice']; ?> Per <?php echo $product['scale'] == 'l' ? 'ml' : ($product['scale'] == 'kg' ? 'g' : $product['scale']);?> </p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">Rs <?php echo htmlspecialchars($product['price']); ?></p>
-                                            <a href="cart.php" class="btn btn-custom"><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
+                                            <p class="text-dark fs-5 fw-bold mb-0">Rs <?php echo $product['price']; ?> </p>
+                                            <a href="cart.php?productID=<?php echo $product['productID']; ?>" class="btn btn-custom add-to-cart" ><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
+                                            <a href="productView.php?product_id=<?php echo $product['productID']; ?>">View Details</a>
                                         </div>
-                                    </div>
+                            </div>
                                 </div>
                             </div>
                             <?php endforeach; ?>

@@ -108,7 +108,7 @@ $monthlyData = json_encode(array_values($monthlyTotals));
 <div class="dashboard-container">
     <div class="dashboard-header">
         <h1><i class="fas fa-chart-pie"></i> Expense Dashboard</h1>
-        <p class="last-update">Last updated: <?php echo $lastUpdate; ?></p>
+        <p class="last-update">Last updated: </p><?php// echo $lastUpdate; ?>
     </div>
     <div style="text-align: center; margin: 20px;">
     <button onclick="window.location.href='expencessForm.php'" style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Set the budget</button>
