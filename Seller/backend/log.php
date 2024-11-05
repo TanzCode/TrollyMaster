@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Verify the password
             if (password_verify($password, $hash)) {
                 // Start the session and set session variables
+                
                 session_start();
                 $_SESSION['sellerLoggedin'] = true;
                 $_SESSION['sellerID'] = $row['sellerID'];
@@ -34,8 +35,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['phone'] = $row['phone'];
 
+                 // Query to get the store ID and store name based on sellerID
+                 $storeQuery = "SELECT * FROM store WHERE sellerID = '{$row['sellerID']}'";
+                 $storeResult = mysqli_query($conn, $storeQuery);
+ 
+                 if ($storeResult && mysqli_num_rows($storeResult) > 0) {
+                     $storeRow = mysqli_fetch_assoc($storeResult);
+                     $_SESSION['storeID'] = $storeRow['storeID']; 
+                     $_SESSION['storeName'] = $storeRow['storeName']; 
+                 } else {
+                     echo "<h3>Store information not found.</h3>";
+                     header("Location: SuccessError/error.html");
+                     exit();
+                 }
+ 
 
-                echo "<h3>Login successful! Welcome, " . $_SESSION['fName'] . ".</h3>";
+
+                echo "<h3>Login successful! Welcome, " . $_SESSION['storeName'] . ".</h3>";
                 // Redirect to the passenger dashboard or another page
                  header("Location: home.php");
                 exit();

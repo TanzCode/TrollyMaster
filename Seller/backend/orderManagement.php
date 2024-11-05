@@ -7,7 +7,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
     $lastName = $_SESSION['lName'];
     $userID = $_SESSION['sellerID'];
    
-    // You can now use $firstName in your HTML or other PHP code
+    
 } else {
     echo "First name not set.";
 }

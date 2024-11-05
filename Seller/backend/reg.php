@@ -88,8 +88,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: SuccessError/error.html");
         exit();
     }
+    // Check if the provided email already exists
+    $result = $conn->query("SELECT COUNT(*) AS count FROM seller_personal WHERE email = '$email'");
+    $row = $result->fetch_assoc();
 
-    
+    if ($row['count'] > 0) {
+        $_SESSION['error'] = "Email already exists!";
+        //echo'email already exist';
+        //header("Location: ../driversSignup.html");
+        exit();
+    }
+        
 
     // Hash the password for security
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);

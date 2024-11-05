@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.promotion-section {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.promotion-section h2, .promotion-section h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.promotion-form {
+    margin-bottom: 30px;
+}
+
+.promotion-form .form-group {
+    margin-bottom: 15px;
+}
+
+.promotion-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.promotion-form input, .promotion-form select, .promotion-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.promotion-form .submit {
+    width: 100%;
+    padding: 10px;
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.promotion-form .submit:hover {
+    background: #45a049;
+}
+
+.promotion-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.promotion-table th, .promotion-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.promotion-table th {
+    background: #f0f0f0;
+    font-weight: bold;
+}
+
+.promotion-table .edit, .promotion-table .delete {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.promotion-table .edit {
+    background-color: #007bff;
+}
+
+.promotion-table .delete {
+    background-color: #dc3545;
+}
