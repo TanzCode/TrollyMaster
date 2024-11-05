@@ -1,6 +1,5 @@
 <?php
-// login.php
-
+session_start();
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hard-coded credentials
@@ -15,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($email === $admin_username && $password === $admin_password) {
         // Success message or redirect to admin dashboard
         echo "Login successful. Welcome, Admin!";
-       
+        $_SESSION['adminlogin'] = true;
          header("Location: dashboard.php");
         exit();
     } else {

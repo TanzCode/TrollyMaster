@@ -1,4 +1,43 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+// Function to send email using PHPMailer
+function sendEmail($to, $subject, $body) {
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->isSMTP();                                            
+        $mail->Host       = 'smtp.gmail.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'trollymaster.lk@gmail.com';      
+        $mail->Password   = 'wvlh qfbg xnas zukm';                   
+        $mail->SMTPSecure = 'tls';                                  
+        $mail->Port       = 587;                                    
+
+        //Recipients
+        $mail->setFrom('trollymaster.lk@gmail.com', 'Trolly Master');
+        $mail->addAddress($to);                                      
+
+        // Content
+        $mail->isHTML(true);                                       
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = strip_tags($body);                         
+        $mail->send();
+        echo 'Email has been sent successfully!';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+       
+
+
 // Include database connection
 include 'dbConnection.php';
 
@@ -16,18 +55,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confPassword = $_POST['confPassword'];
 
     // Get data from Shop Details (Step 1) passed through hidden fields
-    $regID = $_POST['regID'];
+   // $regID = $_POST['regID'];
     $storeName = $_POST['storeName'];
     $streetAddress = $_POST['streetAddress'];
     $city = $_POST['city'];
     $province = $_POST['province'];
     $postalCode = $_POST['postalCode'];
 
+     // Handle file upload 
+    // Image
+    $targetDir = "uploadlogo/";
+    $fileName = basename($_FILES["logo"]["name"]);
+    $targetfilePath = $targetDir . $fileName;
+
+    if (move_uploaded_file($_FILES["logo"]["tmp_name"], $targetfilePath)) {
+        $picture = $targetfilePath;
+    } else {
+        $picture = "";
+    }
+
+
+     //password validation 
+     $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/';
+     if (!preg_match($pattern, $password)) {
+         $_SESSION['error'] = "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.";
+         //header("Location: ../driversSignup.html");
+         exit();
+     }
+
     // Validate that passwords match
     if ($password !== $confPassword) {
         header("Location: SuccessError/error.html");
         exit();
     }
+
+    
 
     // Hash the password for security
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -44,14 +106,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sellerID = $conn->insert_id;
 
         // Insert Shop Details into the store table, including the seller_personal ID
-        $sqlShop = "INSERT INTO store (regID, name, streetAddress, city, province, postalCode,sellerID) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmtShop = $conn->prepare($sqlShop);
-        $stmtShop->bind_param("ssssssi", $regID, $storeName, $streetAddress, $city, $province, $postalCode, $sellerID);
+        $stmtShop = $conn->prepare("INSERT INTO store ( name, streetAddress, city, province, postalCode,sellerID, logo) 
+                    VALUES ('$storeName', '$streetAddress', '$city', '$province', '$postalCode', '$sellerID','$picture')");
+        
 
         // Execute the store insertion
         if ($stmtShop->execute()) {
             echo "Registration successful!";
+            $subject = "Welcome to Trolly Master!";
+            $body = "
+                <html>
+                <body>
+                <p>Dear $firstName $lastName,</p>
+                <p>Congratulations and welcome to Trolly Master! Your registration has been successfully processed.</p>
+                <p><strong>Username:</strong> $email<br><strong>Password:</strong> $password</p>
+                <p>Best regards,<br>The Trolly Master team</p>
+                <p>Contact us: <a href='mailto:trollymaster.lk@gmail.com'>citytaxilk.pvtltd@gmail.com</a> | +94 123 456 789</p>
+                </body>
+                </html>
+            ";
+           sendEmail($email, $subject, $body);
             header("Location: SuccessError/success.html");
         } else {
             echo "Error: " . $stmtShop->error;

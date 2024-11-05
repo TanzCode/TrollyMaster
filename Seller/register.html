@@ -17,7 +17,7 @@
         <!-- Shop Details (Step 1) -->
         <form id="Form1" method="post">
             <h4>Shop Details</h4>
-            <input type="text" id="regID" name="regID" placeholder="Registration Number" required />
+            
             <input type="text" id="storeName" name="storeName" placeholder="Store Name" required />
             <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" required />
             <input type="text" id="city" name="city" placeholder="City" required />
@@ -33,7 +33,7 @@
         <!-- Personal Info (Step 2) -->
         <form action="backend/reg.php" id="Form2" method="post" style="display:none;">
             <!-- Hidden input fields to carry over Step 1 data -->
-            <input type="hidden" id="hregID" name="regID" />
+            <!-- <input type="hidden" id="hregID" name="regID" /> -->
             <input type="hidden" id="hstoreName" name="storeName" />
             <input type="hidden" id="hstreetAddress" name="streetAddress" />
             <input type="hidden" id="hcity" name="city" />
@@ -44,7 +44,24 @@
             <h4>Personal Info</h4>
             <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
             <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+            <label style="font-weight: 500">Logo </label>
+        <input
+          type="file"
+          id="real-file"
+          name="logo"
+          accept="image/*"
+          hidden="hidden"
+        />
+        <button class="gg" id="cutom-botton">Choose Photo</button>
 
+        <script>
+          const realFileBtn = document.getElementById("real-file");
+          const cutomBtn = document.getElementById("cutom-botton");
+
+          cutomBtn.addEventListener("click", function () {
+            realFileBtn.click();
+          });
+        </script>
             <div class="form-radio">
                 <label>Gender</label>
                 <div class="form-radio-item">
@@ -84,7 +101,7 @@
 
         // Transfer data from Step 1 to hidden fields in Step 2
         document.getElementById('Next1').onclick = function() {
-            document.getElementById('hregID').value = document.getElementById('regID').value;
+            //document.getElementById('hregID').value = document.getElementById('regID').value;
             document.getElementById('hstoreName').value = document.getElementById('storeName').value;
             document.getElementById('hstreetAddress').value = document.getElementById('streetAddress').value;
             document.getElementById('hcity').value = document.getElementById('city').value;

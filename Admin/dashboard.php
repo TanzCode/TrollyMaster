@@ -43,7 +43,7 @@
                         <i class='bx bx-store'></i>
                         <span class="nav_name">Shop</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="javascript:void(0)" onclick="notification()" class="nav_link">
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Notification</span>
                     </a>
@@ -51,7 +51,7 @@
                         <i class='bx bx-bookmark nav_icon'></i>
                         <span class="nav_name">Products</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="javascript:void(0)" onclick="order()" class="nav_link">
                         <i class='bx bx-folder nav_icon'></i>
                         <span class="nav_name">Order</span>
                     </a>
@@ -61,7 +61,7 @@
                     </a>
                 </div>
             </div>
-            <a href="#" class="nav_link">
+            <a href="login.html" class="nav_link">
                 <i class='bx bx-log-out nav_icon'></i>
                 <span class="nav_name">Sign Out</span>
             </a>
@@ -96,6 +96,12 @@ function seller() {
 }
 function customer() {
     document.getElementById("mainContent").src = "viewCustomer.php";
+}
+function notification() {
+    document.getElementById("mainContent").src = "notification.php";
+}
+function order() {
+    document.getElementById("mainContent").src = "orderManagement.php";
 }
 </script>
 </html>
