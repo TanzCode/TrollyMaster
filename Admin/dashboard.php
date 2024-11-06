@@ -55,10 +55,7 @@
                         <i class='bx bx-folder nav_icon'></i>
                         <span class="nav_name">Order</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                        <span class="nav_name">Stats</span>
-                    </a>
+                    
                 </div>
             </div>
             <a href="login.html" class="nav_link">
@@ -71,7 +68,7 @@
     <div class="height-100 bg-light">
     
 
-                <iframe id="mainContent" style="width: 100%; height: 80%;" frameborder="0" src="Home.html"></iframe>
+                <iframe id="mainContent" style="width: 100%; height: 100%;" frameborder="0" src="Home.php"></iframe>
     </div>
     <!--Container Main end-->
     <script src="dash.js"></script>
