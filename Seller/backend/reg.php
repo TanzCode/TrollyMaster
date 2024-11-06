@@ -64,15 +64,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
      // Handle file upload 
     // Image
+   
+  // Handle image upload
     $targetDir = "uploadlogo/";
-    $fileName = basename($_FILES["logo"]["name"]);
-    $targetfilePath = $targetDir . $fileName;
+    $fileName = isset($_FILES["productImage"]["name"]) ? basename($_FILES["productImage"]["name"]) : '';
+    $targetFilePath = $targetDir . $fileName;
 
-    if (move_uploaded_file($_FILES["logo"]["tmp_name"], $targetfilePath)) {
-        $picture = $targetfilePath;
+    // Check if the file is uploaded and move it to the target directory
+    if (!empty($fileName) && move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFilePath)) {
+        $picture = $targetFilePath;
     } else {
-        $picture = "";
+        $picture = ""; // Set to empty if no file is uploaded
     }
+
 
 
      //password validation 

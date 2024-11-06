@@ -31,7 +31,7 @@
         </form>
 
         <!-- Personal Info (Step 2) -->
-        <form action="backend/reg.php" id="Form2" method="post" style="display:none;">
+        <form action="backend/reg.php" id="Form2" method="post" style="display:none;" enctype="multipart/form-data"> 
             <!-- Hidden input fields to carry over Step 1 data -->
             <!-- <input type="hidden" id="hregID" name="regID" /> -->
             <input type="hidden" id="hstoreName" name="storeName" />
@@ -45,23 +45,9 @@
             <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
             <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
             <label style="font-weight: 500">Logo </label>
-        <input
-          type="file"
-          id="real-file"
-          name="logo"
-          accept="image/*"
-          hidden="hidden"
-        />
-        <button class="gg" id="cutom-botton">Choose Photo</button>
-
-        <script>
-          const realFileBtn = document.getElementById("real-file");
-          const cutomBtn = document.getElementById("cutom-botton");
-
-          cutomBtn.addEventListener("click", function () {
-            realFileBtn.click();
-          });
-        </script>
+            <label for="productImage">Images</label>
+            <input type="file" id="productImage" name="productImage"  required>
+       
             <div class="form-radio">
                 <label>Gender</label>
                 <div class="form-radio-item">

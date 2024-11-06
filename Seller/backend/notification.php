@@ -100,7 +100,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="home.php" class="nav_logo">
+                <a href="overview.php" class="nav_logo">
                     <i class='bx bx-layer nav_logo-icon'></i>
                     <span class="nav_logo-name">Trolly Master</span>
                 </a>
@@ -110,30 +110,36 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
                         <span class="nav_name">Overview</span>
                     </a>
                     <div class="nav_item dropdown">
-                        <a href="#" class="nav_link dropdown-toggle" id="productDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class='bx bx-clipboard'></i>
+                        <a href="#" class="nav_link dropdown-toggle" id="customerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bx-clipboard' ></i>
                             <span class="nav_name">Product</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="customerDropdown">
                             <li><a class="dropdown-item" href="product/addProducts.php"><i class='bx bxs-add-to-queue'></i><span class="nav_name">Add new Product</span></a></li>
-                            <li><a class="dropdown-item" href="product/updateProducts.php"><i class='bx bxs-book-open'></i><span class="nav_name">View all products</span></a></li>
+                            <li><a class="dropdown-item" href="product/updateProducts.php" ><i class='bx bxs-book-open' ></i><span class="nav_name">View all products</span></a></li>
                             <li><a class="dropdown-item" href="product/viewProducts.php"><i class='bx bx-receipt'></i><span class="nav_name">Update product list</span></a></li>
                         </ul>
                     </div>
-                    <a href="orderManagement.php" class="nav_link">
-                        <i class='bx bxs-package'></i><span class="nav_name">Orders</span>
+                    <a href="orderManagement.php"  class="nav_link">
+                        <i class='bx bxs-package' ></i><span class="nav_name">Orders</span>
                     </a>
+
                     <a href="shopManagement.php" class="nav_link">
                         <i class='bx bx-store'></i><span class="nav_name">Shop management</span>
                     </a>
-                    <a href="notification.php" class="nav_link active">
-                        <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">Notification</span>
+                    <a href="promotions.php" class="nav_link">
+                        <i class='bx bxs-gift'></i><span class="nav_name">Promotions</span>
+                    </a>
+                    <a href="notification.php" class="nav_link"  class="nav_link active">
+                        <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name" >Notification</span>
                     </a>
                     <a href="profile.php" class="nav_link">
-                        <i class='bx bx-cog'></i><span class="nav_name">Profile management</span></a>
+                        <i class='bx bx-cog' ></i><span class="nav_name">Profile management</span>
+                    </a>
+                    
                 </div>
             </div>
-            <a href="login.html" class="nav_link">
+            <a href="../login.html" class="nav_link">
                 <i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span>
             </a>
         </nav>

@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
     <title>Edit Product</title>
 </head>
 <body>
-<header class="header" id="header">
+    <header class="header" id="header">
         <div class="header_toggle">
             <i class='bx bx-menu' id="header-toggle"></i>
         </div>
@@ -76,8 +76,8 @@ if (isset($_GET['id'])) {
                             <span class="nav_name">Product</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="customerDropdown">
-                            <li><a class="dropdown-item" href="addProducts.php" ><i class='bx bxs-add-to-queue'></i><span class="nav_name">Add new Product</span></a></li>
-                            <li><a class="dropdown-item" href="updateProducts.php" class="nav_link active" ><i class='bx bxs-book-open' ></i><span class="nav_name">View all products</span></a></li>
+                            <li><a class="dropdown-item" href="addProducts.php" class="nav_link active"><i class='bx bxs-add-to-queue'></i><span class="nav_name">Add new Product</span></a></li>
+                            <li><a class="dropdown-item" href="updateProducts.php" ><i class='bx bxs-book-open' ></i><span class="nav_name">View all products</span></a></li>
                             <li><a class="dropdown-item" href="viewProducts.php"><i class='bx bx-receipt'></i><span class="nav_name">Update product list</span></a></li>
                         </ul>
                     </div>
@@ -87,6 +87,9 @@ if (isset($_GET['id'])) {
 
                     <a href="../shopManagement.php" class="nav_link">
                         <i class='bx bx-store'></i><span class="nav_name">Shop management</span>
+                    </a>
+                    <a href="../promotions.php" class="nav_link">
+                    <i class='bx bxs-gift'></i><span class="nav_name">Promotions</span>
                     </a>
                     <a href="../notification.php" class="nav_link" >
                         <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name" >Notification</span>

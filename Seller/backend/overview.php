@@ -376,7 +376,7 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="home.php" class="nav_logo">
+                <a href="overview.php" class="nav_logo">
                     <i class='bx bx-layer nav_logo-icon'></i>
                     <span class="nav_logo-name">Trolly Master</span>
                 </a>
@@ -403,6 +403,9 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
                     <a href="shopManagement.php" class="nav_link">
                         <i class='bx bx-store'></i><span class="nav_name">Shop management</span>
                     </a>
+                    <a href="promotions.php" class="nav_link">
+                        <i class='bx bxs-gift'></i><span class="nav_name">Promotions</span>
+                    </a>
                     <a href="notification.php" class="nav_link">
                         <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name" >Notification</span>
                     </a>
@@ -412,7 +415,7 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
                     
                 </div>
             </div>
-            <a href="login.html" class="nav_link">
+            <a href="../login.html" class="nav_link">
                 <i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span>
             </a>
         </nav>

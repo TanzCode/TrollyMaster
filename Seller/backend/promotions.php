@@ -75,7 +75,7 @@ $result = mysqli_query($conn, $sql);
     </style>
 </head>
 <body id="body-pd">
-    <header class="header" id="header">
+<header class="header" id="header">
         <div class="header_toggle">
             <i class='bx bx-menu' id="header-toggle"></i>
         </div>
@@ -86,7 +86,7 @@ $result = mysqli_query($conn, $sql);
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="home.php" class="nav_logo">
+                <a href="overview.php" class="nav_logo">
                     <i class='bx bx-layer nav_logo-icon'></i>
                     <span class="nav_logo-name">Trolly Master</span>
                 </a>
@@ -106,12 +106,15 @@ $result = mysqli_query($conn, $sql);
                             <li><a class="dropdown-item" href="product/viewProducts.php"><i class='bx bx-receipt'></i><span class="nav_name">Update product list</span></a></li>
                         </ul>
                     </div>
-                    <a href="orderManagement.php"  class="nav_link" class="nav_link active">
+                    <a href="orderManagement.php"  class="nav_link">
                         <i class='bx bxs-package' ></i><span class="nav_name">Orders</span>
                     </a>
 
                     <a href="shopManagement.php" class="nav_link">
                         <i class='bx bx-store'></i><span class="nav_name">Shop management</span>
+                    </a>
+                    <a href="promotions.php" class="nav_link"  class="nav_link active">
+                        <i class='bx bxs-gift'></i><span class="nav_name">Promotions</span>
                     </a>
                     <a href="notification.php" class="nav_link">
                         <i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name" >Notification</span>
@@ -122,14 +125,14 @@ $result = mysqli_query($conn, $sql);
                     
                 </div>
             </div>
-            <a href="login.html" class="nav_link">
+            <a href="../login.html" class="nav_link">
                 <i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span>
             </a>
         </nav>
     </div>
 
 
-    <div class="container">
+    <div class="container" style="margin-top:80px;">
         <div class="welcome-message">
             <h1>Welcome, <?php echo htmlspecialchars($firstName) . " " . htmlspecialchars($lastName); ?>!</h1>
             <p>Seller ID: <?php echo htmlspecialchars($sellerID); ?></p>
