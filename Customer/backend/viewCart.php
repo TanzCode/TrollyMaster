@@ -71,7 +71,7 @@ $(document).ready(function () {
                 let grandTotal = 0;
                 
                 cartItems.forEach(item => {
-                    const itemTotal = (item.price - item.discount) * item.quantity;
+                    const itemTotal = (item.price - (item.price * item.discount)/100) * item.quantity;
                     grandTotal += itemTotal;
 
                     cartContent += `

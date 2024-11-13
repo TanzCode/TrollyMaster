@@ -100,6 +100,9 @@
     }
     
     </style>
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -120,7 +123,7 @@
                     </form>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="../../../index.html">Home</a>
+                            <a class="nav-link" href="../../../index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../product.php">All Products</a>
@@ -135,8 +138,10 @@
                             <a class="nav-link" href="expensesTracking.php">Expenses Tracking</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../orderlist.php">Order Management</a>
+                            <a class="nav-link" href="../orderManagement.php">Order Management</a>
                         </li>
+                        
+                        <a class="nav-link" href="../notification.php"><i class='bx bxs-bell' style="color:white;"></i></a>
                         <li class="nav-item">
                             <a class="nav-link" href="../viewCart.php"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>

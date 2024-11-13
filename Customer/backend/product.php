@@ -32,40 +32,67 @@ include 'header.php';
 
 
 
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <h1 class="mb-4">Products</h1>
-            <div class="row g-4">
-                <div class="col-lg-12">
-                    <div class="row g-4">
-                        <?php if (!empty($products)): ?>
-                            <?php foreach ($products as $product): ?>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative product-item">
-                                    <div class="product-img">
-                                        <img src="../../Seller/backend/product/<?php echo ($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo $product['productName']; ?>">
-                                        </div>
-                                        <div class="p-4 p-4 rounded-bottom">
-                                        <h4><?php echo $product['productName']; ?> <?php echo $product['quantity'] , $product['scale']; ?></h4>
-                                        <p><?php echo $product['description']; ?></p>
-                                        <p>Unit Price: LKR.<?php echo $product['unitPrice']; ?> Per 1 <?php echo $product['scale'] == 'l' ? 'ml' : ($product['scale'] == 'kg' ? 'g' : $product['scale']);?> </p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">Rs <?php echo $product['price']; ?> </p>
-                                            <a href="cart.php?productID=<?php echo $product['productID']; ?>" class="btn btn-custom add-to-cart" ><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
-                                            <a href="productView.php?product_id=<?php echo $product['productID']; ?>">View Details</a>
-                                        </div>
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <h1 class="mb-4">Products</h1>
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="row g-4">
+                    <?php if (!empty($products)): ?>
+                        <?php foreach ($products as $product): ?>
+                        <div class="col-md-6 col-lg-6 col-xl-4">
+                            <div class="rounded position-relative product-item">
+                                <div class="product-img">
+                                    <img src="../../Seller/backend/product/<?php echo ($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo $product['productName']; ?>">
+                                </div>
+                                <div class="p-4 rounded-bottom">
+                                    <h4><?php echo $product['productName']; ?> <?php echo $product['quantity'], $product['scale']; ?></h4>
+                                    <p><?php echo $product['description']; ?></p>
+                                    <p>Unit Price: LKR.<?php echo number_format($product['unitPrice'],2); ?> Per 1 <?php echo $product['scale'] == 'l' ? 'ml' : ($product['scale'] == 'kg' ? 'g' : $product['scale']);?></p>
+
+                                    <!-- Display Discount if it's greater than 0 -->
+                                    <?php if ($product['discounts'] > 0): ?>
+                                        <p class="text-danger fw-bold">Discount: LKR. <?php echo $product['discounts']; ?> off</p>
+                                    <?php endif; ?>
+
+                                    <div class="d-flex justify-content-between flex-lg-wrap">
+                                        <p class="text-dark fs-5 fw-bold mb-0">
+                                            <!-- If a discount exists, show the original price with a strikethrough -->
+                                            <?php if ($product['discounts'] > 0): ?>
+                                                <span class="text-muted text-decoration-line-through">Rs 
+                                                    <?php echo number_format($product['price'], 2); ?>
+                                                </span>
+                                                &nbsp; <!-- Add space between original and discounted price -->
+
+                                                <!-- Display the discounted price -->
+                                                Rs 
+                                                <?php 
+                                                $finalPrice = $product['price'] - ($product['price'] * $product['discounts'] / 100); 
+                                                echo number_format($finalPrice, 2); 
+                                                ?>
+                                            <?php else: ?>
+                                                <!-- If no discount, show the regular price -->
+                                                Rs 
+                                                <?php echo number_format($product['price'], 2); ?>
+                                            <?php endif; ?>
+                                        </p>
+                                        <a href="cart.php?productID=<?php echo $product['productID']; ?>" class="btn btn-custom add-to-cart"><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
+                                        <a href="productView.php?product_id=<?php echo $product['productID']; ?>">View Details</a>
                                     </div>
                                 </div>
                             </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p>No products available.</p>
-                        <?php endif; ?>
-                    </div>
+                        </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No products available.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
 
 <!-- Footer and other static parts of the HTML -->
 

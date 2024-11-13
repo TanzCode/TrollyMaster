@@ -15,7 +15,6 @@ if (!isset($_SESSION['cusID'])) {
 // Get customer ID from session
 $customerID = $_SESSION['cusID'];
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data from the POST request
     $cusID = $customerID;
@@ -48,6 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!mysqli_query($conn, $updateQuery)) {
                     throw new Exception("Error updating budget: " . mysqli_error($conn));
                 }
+
+                // Insert into expenses history
+                $historyInsertQuery = "INSERT INTO expenseshistory (budgetID, budget, startdate, enddate, cusID, remainingBudget) 
+                                       VALUES ('$budgetID', '$totalBudget', '$startDate', '$endDate', '$cusID', '$totalBudget')";
+
+                if (!mysqli_query($conn, $historyInsertQuery)) {
+                    throw new Exception("Error inserting into expenses history: " . mysqli_error($conn));
+                }
+
                 $message = "Budget updated successfully!";
             } else {
                 // No existing budget found, insert a new one
@@ -57,6 +65,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!mysqli_query($conn, $insertQuery)) {
                     throw new Exception("Error inserting new budget: " . mysqli_error($conn));
                 }
+
+                // Get the last inserted budgetID
+                $budgetID = mysqli_insert_id($conn);
+
+                // Insert into expenses history
+                $historyInsertQuery = "INSERT INTO expenseshistory (budgetID, budget, startdate, enddate, cusID, remainingBudget) 
+                                       VALUES ('$budgetID', '$totalBudget', '$startDate', '$endDate', '$cusID', '$totalBudget')";
+
+                if (!mysqli_query($conn, $historyInsertQuery)) {
+                    throw new Exception("Error inserting into expenses history: " . mysqli_error($conn));
+                }
+
                 $message = "Budget set successfully!";
             }
 

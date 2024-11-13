@@ -163,7 +163,7 @@ $result = $conn->query($sql);
                 echo "<tr>";
                 echo "<td>" . $row['productID'] . "</td>";
                 echo "<td>" . $row['productName'] . "</td>";
-                echo "<td><img src='../Seller/". $row['image'] . "' alt='Product Image'></td>";
+                echo "<td><img src='../Seller/backend/product/". $row['image'] . "' alt='Product Image'></td>";
                 echo "<td>" . $row['subCategory'] . "</td>";
                 echo "<td>" . $row['brand'] . "</td>";
                 echo "<td>" . $row['discounts'] . "</td>";

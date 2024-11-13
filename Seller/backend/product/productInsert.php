@@ -15,7 +15,7 @@ if (isset($_SESSION['sellerID'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Retrieve form data
-$storeID = $_POST['storeID'];
+
 $productName = $_POST['productName'];
 $category = $_POST['category'];
 $subCategory = $_POST['subcategory'];
@@ -66,8 +66,8 @@ else {
 }
 
 // Insert product data into the database
-$sql = "INSERT INTO product (storeID, productName, category, subCategory, description, brand, storageRequirements, discounts, specialDetails, stockAmount, price, image, quantity, scale, unitPrice, sellerID) 
-        VALUES ('$storeID', '$productName', '$category', '$subCategory', '$description', '$brand', '$storageRequirements', '$discounts', '$specialDetails', '$stockAmount', '$price', '$picture', '$qty', '$scale', '$unitPrice', '$sellerID')";
+$sql = "INSERT INTO product ( productName, category, subCategory, description, brand, storageRequirements, discounts, specialDetails, stockAmount, price, image, quantity, scale, unitPrice, sellerID) 
+        VALUES ('$productName', '$category', '$subCategory', '$description', '$brand', '$storageRequirements', '$discounts', '$specialDetails', '$stockAmount', '$price', '$picture', '$qty', '$scale', '$unitPrice', '$sellerID')";
 }
 // Execute the query and check if it was successful
 if (mysqli_query($conn, $sql)) {

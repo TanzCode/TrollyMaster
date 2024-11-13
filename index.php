@@ -1,3 +1,48 @@
+<?php
+
+include 'conn.php';
+// Function to get new products (limit to 6)
+function getNewProducts($conn) {
+    $sql = "SELECT p.productID, p.productName, p.description, p.price, p.image, p.discounts, 
+                   s.name AS storeName, s.logo AS storeLogo
+            FROM product p
+            JOIN store s ON p.storeID = s.regID
+            ORDER BY p.productID DESC
+            LIMIT 6";
+    $result = $conn->query($sql);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+// Function to get discount promotion products
+// function getDiscountProducts($conn) {
+//     $today = date("Y-m-d");
+//     $sql = "SELECT p.productID, p.productName, p.description, p.price, p.image, p.discounts,
+//                    s.name AS storeName, s.logo AS storeLogo, promo.discount, promo.promotionName
+//             FROM product p
+//             JOIN promotions promo ON p.promotionID = promo.promotionID
+//             JOIN store s ON p.storeID = s.regID
+//             WHERE promo.startDate <= '$today' AND promo.endDate >= '$today'";
+//     $result = $conn->query($sql);
+//     return $result->fetch_all(MYSQLI_ASSOC);
+// }
+
+function getDiscountProducts($conn) {
+    
+        $sql = "SELECT *
+                FROM product
+                 
+                 WHERE discounts>0 ";
+    
+        $result = $conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+
+$newProducts = getNewProducts($conn);
+$discountProducts = getDiscountProducts($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +73,8 @@
     <!-- Navigation bar CSS -->
     <link rel="stylesheet" href="css/nav2style.css">
     <link rel="stylesheet" href="css/nevigation.css">
+    <link rel="stylesheet" href="css/home.css">
+
 
     <style>
         .popup {
@@ -66,7 +113,7 @@
         <div>
             <!-- First Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index.php">
                     <img src="logo.png" alt="Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +126,7 @@
                     </form>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="product.php">All products</a>
@@ -223,6 +270,115 @@
           </div>
         </div>
       </div>
+    
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <!-- New Products Section -->
+            <h1 class="mb-4">New Products</h1>
+            <div class="row g-4">
+                <div class="col-lg-12">
+                    <div class="row g-4">
+                        <?php if (!empty($newProducts)): ?>
+                            <?php foreach ($newProducts as $product): ?>
+                                <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="rounded position-relative product-item">
+                                        <div class="mt-2">
+                                            <h5 style="margin-left:5px;">
+                                                <?php echo htmlspecialchars($product['storeName']); ?>
+                                                <?php if ($product['storeLogo']): ?>
+                                                    <img src="Seller/backend/<?php echo htmlspecialchars($product['storeLogo']); ?>" alt="Store Logo" style="width: 50px; height: 50px; object-fit: cover;">
+                                                <?php endif; ?>
+                                            </h5>
+                                        </div>
+                                        <div class="product-img">
+                                            <img src="Seller/backend/product/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
+                                        </div>
+                                        <div class="p-4 rounded-bottom">
+                                            <h4><?php echo htmlspecialchars($product['productName']); ?></h4>
+                                            <p><?php echo htmlspecialchars($product['description']); ?></p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                <p class="text-dark fs-5 fw-bold mb-0">Rs <?php echo htmlspecialchars($product['price']); ?></p>
+                                                <a href="#" class="btn btn-custom add-to-cart" data-product-id="<?php echo $product['productID']; ?>"><i class="fa fa-shopping-cart cart"></i> Add to cart</a>
+                                                <a href="productView.php?product_id=<?php echo $product['productID']; ?>">View Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No new products available.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Discount Promotion Products Section -->
+<h1 class="mt-5 mb-4">Promotion Products</h1>
+<div class="row g-4">
+    <div class="col-lg-12">
+        <div class="row g-4">
+            <?php
+            // Fetch discount products
+            $discountProducts = getDiscountProducts($conn);
+            if (!empty($discountProducts)): ?>
+                <?php foreach ($discountProducts as $product): ?>
+                    <div class="col-md-6 col-lg-6 col-xl-4">
+                        <div class="rounded position-relative product-item">
+                            <!-- Product Image -->
+                            <div class="product-img">
+                                <img src="Seller/backend/product/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="p-4 rounded-bottom">
+                                <h4><?php echo htmlspecialchars($product['productName']); ?></h4>
+                                <p><?php echo htmlspecialchars($product['description']); ?></p>
+
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <?php
+                                    // Calculate the discounted price
+                                    $originalPrice = $product['price'];
+                                    $discountedPrice = $originalPrice * (1 - $product['discounts'] / 100);
+                                    ?>
+                                    
+                                    <!-- Display Original Price with Strikethrough if Discounted -->
+                                    <?php if ($product['discounts'] > 0): ?>
+                                        <p class="text-muted fs-6 mb-0" style="text-decoration: line-through;">
+                                            Rs <?php echo number_format($originalPrice, 2); ?>
+                                        </p>
+                                    <?php endif; ?>
+
+                                    <!-- Display Discounted Price -->
+                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                        Rs <?php echo number_format($discountedPrice, 2); ?>
+                                    </p>
+
+                                    <!-- Add to Cart Button -->
+                                    <a href="#" class="btn btn-custom add-to-cart" data-product-id="<?php echo $product['productID']; ?>">
+                                        <i class="fa fa-shopping-cart cart"></i> Add to cart
+                                    </a>
+
+                                    <!-- View Details Link -->
+                                    <a href="productView.php?product_id=<?php echo $product['productID']; ?>">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No discount promotion products available.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+
+
+
     <footer>
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
             <div class="container py-5">
@@ -326,5 +482,9 @@
 
 </html>
 
+<?php
+// Close database connection
+$conn->close();
+?>
 
 

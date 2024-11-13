@@ -40,6 +40,16 @@ while ($row = mysqli_fetch_assoc($result_cart_items)) {
     $cart_items_data[] = $row;
 }
 
+// Fetch order revenue data
+$query_order_rev = "SELECT DATE(createdTime) AS order_date, SUM(o.grandTotal) AS revenue 
+                    FROM orders o GROUP BY DATE(createdTime)";
+$result_Order_rev = mysqli_query($conn, $query_order_rev);
+$order_data_revenue = [];
+while ($row = mysqli_fetch_assoc($result_Order_rev)) {
+    $order_data_revenue[] = $row;
+}
+
+
 // Fetch daily revenue by main categories from the cart table
 $query_daily_revenue_categories = "
     SELECT 
@@ -66,7 +76,15 @@ while ($row = mysqli_fetch_assoc($result_daily_revenue_categories)) {
     $daily_revenue_categories_data[] = $row;
 }
 
+// Fetch today's total revenue
+$query_today_revenue = " SELECT SUM(grandTotal) AS today_revenue  FROM orders WHERE DATE(createdTime) = CURDATE()"; // Fetch orders from today's date
+$result_today_revenue = mysqli_query($conn, $query_today_revenue);
+$today_revenue = 0;
 
+if ($result_today_revenue && mysqli_num_rows($result_today_revenue) > 0) {
+    $row = mysqli_fetch_assoc($result_today_revenue);
+    $today_revenue = $row['today_revenue'];
+}
 
 
 // Fetch total customers and sellers
@@ -290,10 +308,16 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
 
     <!-- Top Summary Section -->
     <div class="top-summary">
+        
+    <div class="summary-card">
+        <h2>LKR <?php echo number_format($today_revenue, 2); ?></h2> <!-- Display today's total revenue -->
+        <p>Today's Total Revenue</p>
+    </div>
         <div class="summary-card">
             <h2><?php echo $total_customers; ?></h2>
             <p>Total Customers</p>
         </div>
+
         <div class="summary-card">
             <h2><?php echo $total_sellers; ?></h2>
             <p>Total Sellers</p>
@@ -306,6 +330,15 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
 
     <!-- Dashboard Content -->
     <div class="dashboard-container">
+        <a href="orderRevenueTable.php" class="card-link">
+            <div class="card">
+            <h2>Revenue by Order Date</h2>
+                <div style="width: 80%; margin: auto;" class="chart-container">
+                    <canvas id="orderRevenueChart"></canvas>
+                </div>
+            </div>
+        </a>
+
         <div class="card">
             <h2>Daily Order Count</h2>
             <div class="chart-container">
@@ -333,6 +366,7 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
                 <canvas id="dailyRevenueCategoriesChart"></canvas>
             </div>
         </div>
+       
         <div class="card">
             <h2>Daily Cart Items</h2>
             <div class="chart-container">
@@ -342,117 +376,151 @@ $total_sellers = mysqli_fetch_assoc($result_sellers)['total_sellers'];
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script>
-        // Order Count Chart
-        const orderCountCtx = document.getElementById('orderCountChart').getContext('2d');
-        const orderCountChart = new Chart(orderCountCtx, {
-            type: 'line',
-            data: {
-                labels: <?php echo json_encode(array_column($orders_data, 'order_date')); ?>,
-                datasets: [{
-                    label: 'Daily Orders',
-                    data: <?php echo json_encode(array_column($orders_data, 'daily_order_count')); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
+<script>
+    // Order Count Chart
+    const orderCountCtx = document.getElementById('orderCountChart').getContext('2d');
+    const orderCountChart = new Chart(orderCountCtx, {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode(array_column($orders_data, 'order_date')); ?>,
+            datasets: [{
+                label: 'Daily Orders',
+                data: <?php echo json_encode(array_column($orders_data, 'daily_order_count')); ?>,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
             }
-        });
+        }
+    });
 
-        // Revenue by Store Chart
-        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        const revenueChart = new Chart(revenueCtx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode(array_column($revenue_data, 'store_name')); ?>,
-                datasets: [{
-                    label: 'Revenue',
-                    data: <?php echo json_encode(array_column($revenue_data, 'revenue')); ?>,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
+    // Revenue by Store Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(revenueCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode(array_column($revenue_data, 'store_name')); ?>,
+            datasets: [{
+                label: 'Revenue',
+                data: <?php echo json_encode(array_column($revenue_data, 'revenue')); ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
             }
-        });
+        }
+    });
 
-        // Customer Registration Progress Chart
-        const customerProgressCtx = document.getElementById('customerProgressChart').getContext('2d');
-        const customerProgressChart = new Chart(customerProgressCtx, {
-            type: 'line',
-            data: {
-                labels: <?php echo json_encode(array_column($customer_progress_data, 'reg_date')); ?>,
-                datasets: [{
-                    label: 'Customer Registrations',
-                    data: <?php echo json_encode(array_column($customer_progress_data, 'customer_count')); ?>,
-                    backgroundColor: 'rgba(255, 206, 86, 0.3)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
+    // Customer Registration Progress Chart
+    const customerProgressCtx = document.getElementById('customerProgressChart').getContext('2d');
+    const customerProgressChart = new Chart(customerProgressCtx, {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode(array_column($customer_progress_data, 'reg_date')); ?>,
+            datasets: [{
+                label: 'Customer Registrations',
+                data: <?php echo json_encode(array_column($customer_progress_data, 'customer_count')); ?>,
+                backgroundColor: 'rgba(255, 206, 86, 0.3)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
             }
-        });
+        }
+    });
 
-        // Daily Cart Items Chart
-        const cartItemsCtx = document.getElementById('cartItemsChart').getContext('2d');
-        const cartItemsChart = new Chart(cartItemsCtx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode(array_column($cart_items_data, 'cart_date')); ?>,
-                datasets: [{
-                    label: 'Daily Cart Items',
-                    data: <?php echo json_encode(array_column($cart_items_data, 'daily_cart_count')); ?>,
-                    backgroundColor: 'rgba(153, 102, 255, 0.4)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
+    // Daily Cart Items Chart
+    const cartItemsCtx = document.getElementById('cartItemsChart').getContext('2d');
+    const cartItemsChart = new Chart(cartItemsCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode(array_column($cart_items_data, 'cart_date')); ?>,
+            datasets: [{
+                label: 'Daily Cart Items',
+                data: <?php echo json_encode(array_column($cart_items_data, 'daily_cart_count')); ?>,
+                backgroundColor: 'rgba(153, 102, 255, 0.4)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
             }
-        });
+        }
+    });
 
-         // Daily Revenue by Main Categories Chart
-         const dailyRevenueCategoriesCtx = document.getElementById('dailyRevenueCategoriesChart').getContext('2d');
-        const dailyRevenueCategoriesChart = new Chart(dailyRevenueCategoriesCtx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode(array_column($daily_revenue_categories_data, 'revenue_date')); ?>,
-                datasets: [{
-                    label: 'Revenue',
-                    data: <?php echo json_encode(array_column($daily_revenue_categories_data, 'daily_revenue')); ?>,
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
+    // Daily Revenue by Main Categories Chart
+    const dailyRevenueCategoriesCtx = document.getElementById('dailyRevenueCategoriesChart').getContext('2d');
+    const dailyRevenueCategoriesChart = new Chart(dailyRevenueCategoriesCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode(array_column($daily_revenue_categories_data, 'revenue_date')); ?>,
+            datasets: [{
+                label: 'Revenue',
+                data: <?php echo json_encode(array_column($daily_revenue_categories_data, 'daily_revenue')); ?>,
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Revenue by Order Date Chart (renamed to avoid conflict with store revenue chart)
+    const orderRevenueCtx = document.getElementById('orderRevenueChart').getContext('2d');
+    const orderRevenueChart = new Chart(orderRevenueCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode(array_column($order_data_revenue, 'order_date')); ?>,
+            datasets: [{
+                label: 'Revenue',
+                data: <?php echo json_encode(array_column($order_data_revenue, 'revenue')); ?>,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
+            plugins: {
+                legend: {
+                    display: true
+                },
+                tooltip: {
+                    enabled: true
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
+
+        </script>
 </body>
 </html>
 

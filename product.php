@@ -51,13 +51,13 @@ $conn->close();
                             <div class="rounded position-relative product-item">
                                 <!-- Store details -->
                                 <div class="mt-2">
-                                        <h5><?php echo htmlspecialchars($product['storeName']); ?></h5>
-                                        <?php if ($product['storeLogo']): ?>
-                                            <img src="Seller/backend/uploadlogo/<?php echo htmlspecialchars($product['storeLogo']); ?>" alt="Store Logo" style="width: 50px; height: 50px; object-fit: cover;">
-                                        <?php else: ?>
-                                            <p>No logo available</p>
-                                        <?php endif; ?>
-                                    </div>
+                                    <h5 style="margin-left:5px;"><?php echo htmlspecialchars($product['storeName']); ?>
+                                    <?php if ($product['storeLogo']): ?>
+                                        <img src="Seller/backend/<?php echo htmlspecialchars($product['storeLogo']); ?>" alt="Store Logo" style="width: 50px; height: 50px; object-fit: cover; ">
+                                    <?php else: ?>
+                                        <p>No logo available</p>
+                                    <?php endif; ?>
+                                </div>
                                 <div class="product-img">
                                     <img src="Seller/backend/product/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid w-100 rounded-top" alt="<?php echo htmlspecialchars($product['productName']); ?>">
                                 </div>

@@ -1,14 +1,72 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+
 session_start();
 require '../dbConnection.php';
 
+
+
+
+// Email sending function
+function sendEmail($to, $subject, $body) {
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->isSMTP();                                            
+        $mail->Host       = 'smtp.gmail.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'trollymaster.lk@gmail.com';      
+        $mail->Password   = 'wvlh qfbg xnas zukm';                   
+        $mail->SMTPSecure = 'tls';                                  
+        $mail->Port       = 587;                                    
+
+        //Recipients
+        $mail->setFrom('trollymaster.lk@gmail.com', 'Trolly Master');
+        $mail->addAddress($to);                                      
+
+        // Content
+        $mail->isHTML(true);                                       
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = strip_tags($body);                         
+        $mail->send();
+        echo 'Email has been sent successfully!';
+    } catch (Exception $e) {
+       // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
 // Check if the customer is logged in
 if (!isset($_SESSION['cusID'])) {
     header('Location: ../login.php'); // Redirect to login page if customer is not logged in
     exit();
 }
 
-$cusID = $_SESSION['cusID']; // Retrieve customer ID from session
+
+    $cusID = $_SESSION['cusID']; // Retrieve customer ID from session
+
+    // Fetch customer details such as first name, last name, and email
+    $customerQuery = "SELECT fName, lName, email FROM customer_personal WHERE cusID = '$cusID'";
+    $customerResult = mysqli_query($conn, $customerQuery);
+
+    if ($customerResult && mysqli_num_rows($customerResult) > 0) {
+        $customerRow = mysqli_fetch_assoc($customerResult);
+        $firstName = $customerRow['fName'];
+        $lastName = $customerRow['lName'];
+        $email = $customerRow['email'];
+    } else {
+      //  echo "Customer details not found.";
+        exit();
+    }
+
+ 
 
 // Check if grandTotal is available in session
 if (isset($_SESSION['grandTotal'])) {
@@ -46,10 +104,26 @@ if (isset($_SESSION['grandTotal'])) {
             if ($budgetResult && mysqli_num_rows($budgetResult) > 0) {
                 $budgetRow = mysqli_fetch_assoc($budgetResult);
                 $remainingBudget = $budgetRow['remainingBudget'];
+                $initialBudget = $budgetRow['budget'];
                 $budgetID = $budgetRow['budgetID'];
 
                 // Deduct the grandTotal from the remaining budget, allowing negative results
                 $newRemainingBudget = $remainingBudget - $grandTotal;
+
+             // Check if remaining budget is below 5% of initial budget
+            $threshold = $initialBudget * 0.05; // 5% of the initial budget
+            if ($newRemainingBudget < $threshold) {
+                // Prepare notification for the customer
+                $message = "Dear $firstName $lastName,\nYour remaining budget has dropped below 5%. Your current remaining budget is $newRemainingBudget. Please manage your budget wisely.\nThank you for using Trolly Master.";
+
+                // Insert notification into the notifications table for the customer
+                $notificationQuery = "INSERT INTO notifications (recipientType, recipientID, Message, status, timeStamp) 
+                    VALUES ('customer', $cusID, '$message', 0, NOW())";
+                mysqli_query($conn, $notificationQuery);
+            }
+
+
+
                 $updateBudgetQuery = "UPDATE expenses SET remainingBudget = '$newRemainingBudget' WHERE budgetID = '$budgetID'";
                 if (!mysqli_query($conn, $updateBudgetQuery)) {
                     throw new Exception("Error updating budget: " . mysqli_error($conn));
@@ -67,7 +141,31 @@ if (isset($_SESSION['grandTotal'])) {
 
             // Commit the transaction
             mysqli_commit($conn);
-            echo "Order placed successfully!";
+            //echo "Order placed successfully!";
+
+             // Send the confirmation email to the customer
+             $subject = "Order Confirmation from Trolly Master";
+             $body = "
+                 <html>
+                 <body>
+                 <p>Dear $firstName $lastName,</p>
+                 <p>Thank you for shopping with Trolly Master! Your order has been placed successfully and is being processed. You can expect your delivery to arrive in 7-8 business days.</p>
+                 
+                 <h3>Order Details:</h3>
+                 <p><strong>Order ID:</strong> $orderID</p>
+                 <p><strong>Grand Total:</strong> $grandTotal</p>
+                 <p><strong>Estimated Delivery Time:</strong> 7-8 business days</p>
+ 
+                 <p>Thank you for choosing Trolly Master. We look forward to serving you again!</p>
+                 <p>If you have any questions about your order, feel free to contact us at <a href='mailto:trollymaster.lk@gmail.com'>trollymaster.lk@gmail.com</a> or call +94 123 456 789.</p>
+ 
+                 <p>Best regards,<br>The Trolly Master Team</p>
+                 </body>
+                 </html>
+             ";
+ 
+             sendEmail($email, $subject, $body);
+ 
 
         } catch (Exception $e) {
             // Rollback transaction in case of errors

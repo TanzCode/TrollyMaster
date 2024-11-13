@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="../../css/nav2style.css">
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/nav.js"></script>
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    
     <link rel="stylesheet" href="../../css/style.css">
@@ -109,7 +112,7 @@
         <div>
             <!-- First Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index.php">
                     <img src="logo.png" alt="Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +125,7 @@
                     </form>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home</a>
+                            <a class="nav-link" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="product.php">All Products</a>
@@ -139,11 +142,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="orderManagement.php">Order Management</a>
                         </li>
+                        <a class="nav-link" href="notification.php"><i class='bx bxs-bell' style="color:white;"></i></a>
                         <li class="nav-item">
                             <a class="nav-link" href="viewCart.php"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../index.html" id="loginBtn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                            <a class="nav-link" href="../../index.php" id="loginBtn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                         </li>
                     </ul>
                 </div>

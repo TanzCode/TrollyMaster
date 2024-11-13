@@ -38,7 +38,7 @@ $conn->close();
         <div>
             <!-- First Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index.php">
                     <img src="logo.png" alt="Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@ $conn->close();
                     </form>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="product.php">All Products</a>
@@ -66,7 +66,7 @@ $conn->close();
                             <a class="nav-link" href="viewCart.php"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../index.html" id="loginBtn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                            <a class="nav-link" href="../index.php" id="loginBtn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                         </li>
                     </ul>
                 </div>

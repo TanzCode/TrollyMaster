@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-include 'dbConnection.php'; // Assumes you have a conn.php file to connect to your database
+include 'conn.php'; // Assumes you have a conn.php file to connect to your database
 
 // Check the database connection
 if ($conn->connect_error) {
@@ -210,7 +210,7 @@ if (isset($_GET['product_id'])) {
         <p><strong>Special Details:</strong> <?php echo htmlspecialchars($product['specialDetails']); ?></p>
         <p><strong>Description:</strong> <?php echo htmlspecialchars($product['description']); ?></p>
         <!-- Add to Cart Button -->
-        <a href="cart.php?productID=<?php echo $product['productID']; ?>" class="btn btn-custom add-to-cart">
+        <a href="customer/backend/cart.php?productID=<?php echo $product['productID']; ?>" class="btn btn-custom add-to-cart">
             <i class="fa fa-shopping-cart cart"></i> Add to cart
         </a>
     </div>
@@ -220,8 +220,8 @@ if (isset($_GET['product_id'])) {
         <!-- Shop Details -->
         <?php if ($shop): ?>
             <div class="shop-details">
-                <h3><?php echo htmlspecialchars($shop['name']); ?></h3>
-                <p><strong>Logo:</strong> <img src="../../Seller/backend/uploadlogo/<?php echo htmlspecialchars($shop['logo']); ?>" alt="Shop Logo" style="max-width: 100px; height: auto;"></p>
+                <h3>
+                <strong></strong> <img src="Seller/backend/<?php echo htmlspecialchars($shop['logo']); ?>" alt="Shop Logo" style="max-width: 100px; height: auto;"><?php echo htmlspecialchars($shop['name']); ?></h3>
                 <p><strong>Address:</strong> <?php echo htmlspecialchars($shop['streetAddress']) . ', ' . htmlspecialchars($shop['city']) . ', ' . htmlspecialchars($shop['province']) . ' ' . htmlspecialchars($shop['postalCode']); ?></p>
             </div>
         <?php else: ?>

@@ -119,7 +119,8 @@ $result = $conn->query($sql);
                 echo "<td>" . $row['specialDetails'] . "</td>";
                 echo "<td>" . $row['stockAmount'] . "</td>";
                 echo "<td>" . $row['price'] . "</td>";
-                echo "<td><img src='" . $row['image'] . "' alt='Product Image'></td>";
+                echo "<td><img src='../Seller/backend/product/{$row['image']}' alt='Product Image'></td>";
+
                 echo "<td class='action-buttons'>";
                 echo "<a href='editProduct.html?id=" . $row['productID'] . "'><button class='edit-button'>Edit</button></a>";
                 echo "<a href='deleteProduct.php?id=" . $row['productID'] . "' onclick=\"return confirm('Are you sure you want to delete this product?');\"><button class='delete-button'>Delete</button></a>";

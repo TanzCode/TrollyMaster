@@ -6,7 +6,7 @@ include('dbConnection.php');
 if (isset($_SESSION['loggedincus']) && $_SESSION['loggedincus'] == true) {
     $userID = htmlspecialchars($_SESSION['cusID']);
 } else {
-    echo 'Please login to view notifications.';
+    echo 'Please login to view Cart.';
     exit;
 }
 
@@ -52,9 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("iisdiids", $userID, $product['productID'], $product['productName'], $price, $quantity, $discount, $total, $category);
 
     if ($stmt->execute()) {
-        // Redirect to cart page or show success message
-        header("Location: SuccessError\successCart.html");
-        exit();
+         // Update the product quantity in the product table
+         $newQuantity = $product['stockAmount'] - $quantity;
+         $updateSql = "UPDATE product SET stockAmount = ? WHERE productID = ?";
+         $updateStmt = $conn->prepare($updateSql);
+         $updateStmt->bind_param("ii", $newQuantity, $productID);
+         
+         if ($updateStmt->execute()) {
+             // Redirect to success page
+             header("Location: SuccessError/successCart.html");
+             exit();
+         } else {
+             // Redirect to error page if the product quantity update fails
+             header("Location: SuccessError/error.html");
+             exit();
+         }
     } else {
         header("Location: SuccessError\error.html");
     }
@@ -190,12 +202,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2><?php echo $product['productName']; ?></h2>
             <p><?php echo $product['description']; ?></p>
             <p>Price: Rs <?php echo number_format($product['price'], 2); ?></p>
-            <p>Quantity Available: <?php echo $product['quantity']; ?></p>
+            <p>Quantity Available: <?php echo $product['stockAmount']; ?></p>
         </div>
 
         <div class="form-group">
             <label for="quantity">Enter Quantity:</label>
-            <input type="number" name="amount" id="amount" min="1" max="<?php echo $product['quantity']; ?>" required>
+            <input type="number" name="amount" id="amount" min="1" max="<?php echo $product['stockAmount']; ?>" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Add to Cart</button>

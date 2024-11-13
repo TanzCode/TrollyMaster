@@ -1,16 +1,34 @@
-<head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trolly Master</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/home.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"><!--fontawesome-free-5.15.4-web-->
-   <!--fontawesome-free-5.15.4-web-->
-    <link rel="stylesheet" href="css/nevigation.css">
-    <link rel="stylesheet" href="css/nav2style.css">
-    <script src="js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-    <link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="utf-8">
+    <title>Fruitables - Vegetable Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Fresh Fruits, Vegetables, Grocery" name="keywords">
+    <meta content="Your one-stop shop for fresh fruits, vegetables, and all your grocery needs." name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Navigation bar CSS -->
+    <link rel="stylesheet" href="css/nav2style.css">
+    <link rel="stylesheet" href="css/nevigation.css">
+    <link rel="stylesheet" href="css/home.css">
     <style>
         .popup {
             display: none;
@@ -38,65 +56,8 @@
         .card {
             cursor: pointer;
         }
-            /* Stylish Modal */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.7);
-    }
-    .modal-content {
-        background-color: #fff;
-        margin: 15% auto;
-        padding: 20px;
-        border-radius: 10px;
-        width: 30%;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        animation: fadeIn 0.3s ease-in-out;
-        position: relative;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.9); }
-        to { opacity: 1; transform: scale(1); }
-    }
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        color: #333;
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    .close:hover {
-        color: darkorange;
-    }
-    .modal-content h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-        color: darkorange;
-    }
-    .modal-content p {
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 20px;
-    }
-    .modal-content button {
-        padding: 10px 20px;
-        margin-right: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .modal-content button.btn-custom:hover {
-        background-color: darkorange;
-        color: #fff;
-    }
+
+        
     </style>
 </head>
 
@@ -105,7 +66,7 @@
         <div>
             <!-- First Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index.php">
                     <img src="logo.png" alt="Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,10 +79,10 @@
                     </form>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
+                            <a class="nav-link" href="product.php">All products</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact Us</a>
@@ -246,6 +207,7 @@
                     </ul>
                 </div>
             </nav>
+            
             
         </div>
     </header>

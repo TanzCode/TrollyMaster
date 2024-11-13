@@ -18,6 +18,7 @@ $budgetResult = $budgetStmt->get_result()->fetch_assoc();
 
 $currentDate = date("Y-m-d");
 
+// Check if the current date is greater than the end date of the budget period
 if ($currentDate > $budgetResult['enddate']) {
     // Calculate the duration of the previous period
     $startDate = new DateTime($budgetResult['startdate']);
@@ -29,32 +30,50 @@ if ($currentDate > $budgetResult['enddate']) {
     $newStartDate = date("Y-m-d", strtotime($budgetResult['enddate'] . ' +1 day'));
     $newEndDate = date("Y-m-d", strtotime($newStartDate . " +$periodDays days"));
 
-    // Insert a new budget period
-    $newBudgetQuery = "INSERT INTO expenses (budget, startdate, enddate, cusID, remainingBudget) VALUES (?, ?, ?, ?, ?)";
+    // Insert a new budget period into the expenses table
+    $newBudgetQuery = "INSERT INTO expenses (budget, startdate, enddate, cusID, remainingBudget) 
+                       VALUES (?, ?, ?, ?, ?)";
     $newBudgetStmt = $conn->prepare($newBudgetQuery);
-    $remainingBudget = $budgetResult['budget']; // Reset to the original budget amount
+    
+    // Reset remaining budget to the original budget amount
+    $remainingBudget = $budgetResult['budget'];
 
-    $newBudgetStmt->bind_param("issii", $budgetResult['budget'], $newStartDate, $newEndDate, $cusID, $remainingBudget);
+    // Bind parameters and execute the query
+    $newBudgetStmt->bind_param("ssssi", $budgetResult['budget'], $newStartDate, $newEndDate, $cusID, $remainingBudget);
     $newBudgetStmt->execute();
-    $budget =$budgetResult['budget'];
-    $remainingBudget = $budgetResult['remainingBudget'] ?? 0;
-}
-else{
-// Fetch budget data
-$budgetQuery = "SELECT budget, remainingBudget, updatedTime FROM expenseshistory 
-                WHERE cusID = ? ORDER BY updatedTime DESC LIMIT 1";
-$budgetStmt = $conn->prepare($budgetQuery);
-if (!$budgetStmt) {
-    die("Error preparing statement for budget query: " . $conn->error);
-}
-$budgetStmt->bind_param("i", $cusID);
-$budgetStmt->execute();
-$budgetResult = $budgetStmt->get_result()->fetch_assoc();
 
-$budget = $budgetResult['budget'] ?? 0;
-$remainingBudget = $budgetResult['remainingBudget'] ?? 0;
-$lastUpdate = isset($budgetResult['updatedTime']) ? date("M d, Y", strtotime($budgetResult['updatedTime'])) : 'Not set';
+    // Insert a new record into expenseshistory table
+    $historyQuery = "INSERT INTO expenseshistory (budget, startdate, enddate, cusID, remainingBudget) 
+                     VALUES (?, ?, ?, ?, ?)";
+    $historyStmt = $conn->prepare($historyQuery);
+    $historyStmt->bind_param("ssssi", $budgetResult['budget'], $newStartDate, $newEndDate, $cusID, $remainingBudget);
+    $historyStmt->execute();
+
+    // Assign values for later use
+    $budget = $budgetResult['budget'];
+    $remainingBudget = $budgetResult['remainingBudget'] ?? 0;
+} else {
+    // Fetch the most recent budget data from the expenseshistory table
+    $budgetQuery = "SELECT budget, remainingBudget, updatedTime FROM expenseshistory 
+                    WHERE cusID = ? ORDER BY updatedTime DESC LIMIT 1";
+    $budgetStmt = $conn->prepare($budgetQuery);
+
+    // Check if the statement was prepared correctly
+    if (!$budgetStmt) {
+        die("Error preparing statement for budget query: " . $conn->error);
+    }
+
+    // Bind the customer ID and execute the query
+    $budgetStmt->bind_param("i", $cusID);
+    $budgetStmt->execute();
+
+    // Fetch the result and assign to variables
+    $budgetResult = $budgetStmt->get_result()->fetch_assoc();
+    $budget = $budgetResult['budget'] ?? 0;
+    $remainingBudget = $budgetResult['remainingBudget'] ?? 0;
+    $lastUpdate = isset($budgetResult['updatedTime']) ? date("M d, Y", strtotime($budgetResult['updatedTime'])) : 'Not set';
 }
+
 
 // Calculate spending percentage
 $spentAmount = $budget - $remainingBudget;

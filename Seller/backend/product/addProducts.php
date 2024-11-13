@@ -91,10 +91,7 @@ if (isset($_SESSION['fName']) && isset($_SESSION['lName']) && isset($_SESSION['s
         <form action="productInsert.php" method="post" enctype="multipart/form-data" class="product-form">
             <h2>Insert Product</h2>
 
-            <div class="form-group">
-                <label for="storeID">Store ID</label>
-                <input type="text" id="storeID" name="storeID" required>
-            </div>
+            
 
             <div class="form-group">
                 <label for="productName">Product Name</label>
